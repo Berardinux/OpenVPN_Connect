@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
+
+class UiLayout(Gtk.Window):
+    def __init__(self):
+        Gtk.Window.__init__(self, title="Blank GTK Window")
+
+        self.set_default_size(500, 800)
+        self.set_resizable(False)
+
+        fixed = Gtk.Fixed()
+        self.add(fixed)
+        
+        image = Gtk.Image.new_from_file("Images/ovpn_Profiles.png")
+        fixed.put(image, 0, 0)
+
+        overlay = Gtk.Overlay()
+        overlay.set_size_request(500, 800)
+        fixed.put(overlay, 0, 0)
+
+        button_image = Gtk.Image.new_from_file("Images/ovpn_settings.png")
+        button = Gtk.Button()
+        button.add(button_image)
+        overlay.add_overlay(button)
+        overlay.set_overlay_pass_through(button, True)
+        button.set_margin_left(20)
+        button.set_margin_top(20)
+        button.set_valign(Gtk.Align.START)
+        button.set_halign(Gtk.Align.START)
+
+        button_image2 = Gtk.Image.new_from_file("Images/ovpn_scroll.png")  # Assuming the correct path for the new image
+        button2 = Gtk.Button()
+        button2.add(button_image2)
+        overlay.add_overlay(button2)
+        overlay.set_overlay_pass_through(button2, True)
+        button2.set_margin_right(20)
+        button2.set_margin_top(20)
+        button2.set_valign(Gtk.Align.START)
+        button2.set_halign(Gtk.Align.END)
+
+        button_image3 = Gtk.Image.new_from_file("Images/ovpn_plus.png")  # Assuming the correct path for the new image
+        button3 = Gtk.Button()
+        button3.add(button_image3)
+        overlay.add_overlay(button3)
+        overlay.set_overlay_pass_through(button3, True)
+        button3.set_margin_right(20)
+        button3.set_margin_bottom(20)
+        button3.set_valign(Gtk.Align.END)
+        button3.set_halign(Gtk.Align.END)
+
+ui_layout = UiLayout()
+ui_layout.connect("destroy", Gtk.main_quit)
+ui_layout.show_all()
+Gtk.main()
