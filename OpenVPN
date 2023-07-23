@@ -6,7 +6,7 @@ from gi.repository import Gtk
 
 class UiLayout(Gtk.Window):
     def __init__(self):
-        Gtk.Window.__init__(self, title="Blank GTK Window")
+        Gtk.Window.__init__(self, title="OpenVPN")
 
         self.set_default_size(500, 800)
         self.set_resizable(False)
@@ -14,7 +14,7 @@ class UiLayout(Gtk.Window):
         fixed = Gtk.Fixed()
         self.add(fixed)
         
-        image = Gtk.Image.new_from_file("Images/ovpn_Profiles.png")
+        image = Gtk.Image.new_from_file("Images/ovpn_Profiles.jpeg")
         fixed.put(image, 0, 0)
 
         overlay = Gtk.Overlay()
@@ -23,6 +23,7 @@ class UiLayout(Gtk.Window):
 
         button_image = Gtk.Image.new_from_file("Images/ovpn_settings.png")
         button = Gtk.Button()
+        button.connect("clicked", self.on_settings_button_clicked)
         button.add(button_image)
         overlay.add_overlay(button)
         overlay.set_overlay_pass_through(button, True)
@@ -33,6 +34,7 @@ class UiLayout(Gtk.Window):
 
         button_image2 = Gtk.Image.new_from_file("Images/ovpn_scroll.png")  # Assuming the correct path for the new image
         button2 = Gtk.Button()
+        button2.connect("clicked", self.on_button2_clicked)
         button2.add(button_image2)
         overlay.add_overlay(button2)
         overlay.set_overlay_pass_through(button2, True)
@@ -43,6 +45,7 @@ class UiLayout(Gtk.Window):
 
         button_image3 = Gtk.Image.new_from_file("Images/ovpn_plus.png")  # Assuming the correct path for the new image
         button3 = Gtk.Button()
+        button3.connect("clicked", self.on_button3_clicked)
         button3.add(button_image3)
         overlay.add_overlay(button3)
         overlay.set_overlay_pass_through(button3, True)
@@ -50,6 +53,143 @@ class UiLayout(Gtk.Window):
         button3.set_margin_bottom(20)
         button3.set_valign(Gtk.Align.END)
         button3.set_halign(Gtk.Align.END)
+
+##############################################################################
+############################# SETTINGS WINDOW ################################
+##############################################################################
+
+    def on_settings_button_clicked(self, button):
+        # Function to create and show a new window when label1 is clicked
+        settings_window = Gtk.Window(title="Settings")
+        settings_window.set_default_size(500, 800)
+        self.set_resizable(False)
+
+        overlay = Gtk.Overlay()
+        settings_window.add(overlay)
+
+        # Add the background image to the overlay
+        settings_image = Gtk.Image.new_from_file("Images/ovpn_settings.jpeg")
+        overlay.add(settings_image)
+
+        fixed = Gtk.Fixed()
+        overlay.add_overlay(fixed)
+
+        button_image = Gtk.Image.new_from_file("Images/ovpn_arrow.png")  # Replace with the path to your button image
+        button = Gtk.Button()
+        button.connect("clicked", self.on_back_to_main_clicked, settings_window)
+        button.add(button_image)
+        overlay.add_overlay(button)
+        overlay.set_overlay_pass_through(button, True)
+        button.set_margin_left(20)
+        button.set_margin_top(20)
+        button.set_valign(Gtk.Align.START)
+        button.set_halign(Gtk.Align.START)
+
+        settings_window.connect("destroy", Gtk.main_quit)
+
+        main_x, main_y = self.get_position()
+        settings_window.move(main_x, main_y)
+
+        settings_window.show_all()
+
+        self.hide()
+
+    def on_back_to_main_clicked(self, button, settings_window):
+        # Callback function to handle the back button in the settings window
+        settings_window.hide()
+        self.show_all()
+
+##############################################################################
+############################### LOGS WINDOW ##################################
+##############################################################################
+
+    def on_button2_clicked(self, button):
+        # Function to create and show a new window when label1 is clicked
+        logs_window = Gtk.Window(title="Logs")
+        logs_window.set_default_size(500, 800)
+        self.set_resizable(False)
+
+        overlay = Gtk.Overlay()
+        logs_window.add(overlay)
+
+        # Add the background image to the overlay
+        logs_image = Gtk.Image.new_from_file("Images/ovpn_logs.jpeg")
+        overlay.add(logs_image)
+
+        fixed = Gtk.Fixed()
+        overlay.add_overlay(fixed)
+
+        button_image = Gtk.Image.new_from_file("Images/ovpn_arrow.png")  # Replace with the path to your button image
+        button = Gtk.Button()
+        button.connect("clicked", self.on_back_to_main_clicked, logs_window)
+        button.add(button_image)
+        overlay.add_overlay(button)
+        overlay.set_overlay_pass_through(button, True)
+        button.set_margin_left(20)
+        button.set_margin_top(20)
+        button.set_valign(Gtk.Align.START)
+        button.set_halign(Gtk.Align.START)
+
+        logs_window.connect("destroy", Gtk.main_quit)
+
+        main_x, main_y = self.get_position()
+        logs_window.move(main_x, main_y)
+
+        logs_window.show_all()
+
+        self.hide()
+
+    def on_back_to_main_clicked(self, button, logs_window):
+        # Callback function to handle the back button in the settings window
+        logs_window.hide()
+        self.show_all()
+
+##############################################################################
+############################### ADD WINDOW ##################################
+##############################################################################
+
+    def on_button3_clicked(self, button):
+        # Function to create and show a new window when label1 is clicked
+        add_window = Gtk.Window(title="ADD")
+        add_window.set_default_size(500, 800)
+        self.set_resizable(False)
+
+        overlay = Gtk.Overlay()
+        add_window.add(overlay)
+
+        # Add the background image to the overlay
+        add_image = Gtk.Image.new_from_file("Images/ovpn_Import.jpeg")
+        overlay.add(add_image)
+
+        fixed = Gtk.Fixed()
+        overlay.add_overlay(fixed)
+
+        button_image = Gtk.Image.new_from_file("Images/ovpn_arrow.png")  # Replace with the path to your button image
+        button = Gtk.Button()
+        button.connect("clicked", self.on_back_to_main_clicked, add_window)
+        button.add(button_image)
+        overlay.add_overlay(button)
+        overlay.set_overlay_pass_through(button, True)
+        button.set_margin_left(20)
+        button.set_margin_top(20)
+        button.set_valign(Gtk.Align.START)
+        button.set_halign(Gtk.Align.START)
+
+        add_window.connect("destroy", Gtk.main_quit)
+
+        main_x, main_y = self.get_position()
+        add_window.move(main_x, main_y)
+
+        add_window.show_all()
+
+        self.hide()
+
+    def on_back_to_main_clicked(self, button, add_window):
+        # Callback function to handle the back button in the settings window
+        add_window.hide()
+        self.show_all()
+
+
 
 ui_layout = UiLayout()
 ui_layout.connect("destroy", Gtk.main_quit)
