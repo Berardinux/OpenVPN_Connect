@@ -3,6 +3,7 @@
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
+import subprocess
 
 class UiLayout(Gtk.Window):
     def __init__(self):
@@ -53,6 +54,23 @@ class UiLayout(Gtk.Window):
         button3.set_valign(Gtk.Align.END)
         button3.set_halign(Gtk.Align.END)
 
+    def main():
+        # Initialize CSS for custom styles
+        css_provider = Gtk.CssProvider()
+        css_provider.load_from_path("styles.css")  # Assuming you have a styles.css file in the same directory
+
+        context = Gtk.StyleContext()
+        screen = Gdk.Screen.get_default()
+        context.add_provider_for_screen(screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+        ui_layout = UiLayout()
+        ui_layout.connect("destroy", Gtk.main_quit)
+        ui_layout.show_all()
+        Gtk.main()
+
+        if __name__ == "__main__":
+            main()
+
 ##############################################################################
 ############################# SETTINGS WINDOW ################################
 ##############################################################################
@@ -100,6 +118,9 @@ class UiLayout(Gtk.Window):
 ##############################################################################
 ############################### LOGS WINDOW ##################################
 ##############################################################################
+    def get_logs_output(self):
+        result = subprocess.run(['echo', 'Hello Logs'], capture_output=True, text=True)
+        return result.stdout.strip() if result.stdout else ""
 
     def on_button2_clicked(self, button):
         # Function to create and show a new window when label1 is clicked
@@ -129,6 +150,12 @@ class UiLayout(Gtk.Window):
         button.set_margin_top(20)
         button.set_valign(Gtk.Align.START)
         button.set_halign(Gtk.Align.START)
+
+        logs_output = self.get_logs_output()
+        logs_label = Gtk.Label()
+        logs_label.set_text(logs_output)
+        logs_label.set_size_request(400,700)
+        fixed.put(logs_label, 50, 50)
 
         logs_window.connect("destroy", Gtk.main_quit)
 
