@@ -7,10 +7,9 @@ from gi.repository import Gtk
 class UiLayout(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self, title="OpenVPN")
-        self.set_position(Gtk.WindowPosition.CENTER)
         self.set_default_size(500, 800)
+        self.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
         self.set_resizable(False)
-
         fixed = Gtk.Fixed()
         self.add(fixed)
         
@@ -62,8 +61,9 @@ class UiLayout(Gtk.Window):
         # Function to create and show a new window when label1 is clicked
         settings_window = Gtk.Window(title="Settings")
         settings_window.set_default_size(500, 800)
-        self.set_position(Gtk.WindowPosition.CENTER)
-        self.set_resizable(False)
+        settings_window.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+        settings_window.set_transient_for(self)
+        settings_window.set_resizable(False)
 
         overlay = Gtk.Overlay()
         settings_window.add(overlay)
@@ -105,7 +105,9 @@ class UiLayout(Gtk.Window):
         # Function to create and show a new window when label1 is clicked
         logs_window = Gtk.Window(title="Logs")
         logs_window.set_default_size(500, 800)
-        self.set_resizable(False)
+        logs_window.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+        logs_window.set_transient_for(self)
+        logs_window.set_resizable(False)
 
         overlay = Gtk.Overlay()
         logs_window.add(overlay)
@@ -147,7 +149,9 @@ class UiLayout(Gtk.Window):
         # Function to create and show a new window when label1 is clicked
         add_window = Gtk.Window(title="ADD")
         add_window.set_default_size(500, 800)
-        self.set_resizable(False)
+        add_window.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+        add_window.set_transient_for(self)
+        add_window.set_resizable(False)
 
         overlay = Gtk.Overlay()
         add_window.add(overlay)
