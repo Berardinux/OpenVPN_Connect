@@ -54,6 +54,11 @@ class UiLayout(Gtk.Window):
         button3.set_valign(Gtk.Align.END)
         button3.set_halign(Gtk.Align.END)
 
+##############################################################################
+
+
+##############################################################################
+
     def css():
         css_provider = Gtk.CssProvider()
         css_provider.load_from_path("styles.css")
@@ -115,7 +120,7 @@ class UiLayout(Gtk.Window):
 ############################### LOGS WINDOW ##################################
 ##############################################################################
     def get_logs_output(self):
-        result = subprocess.run(['journalctl', '-u', 'openvpn.service'], capture_output=True, text=True)
+        result = subprocess.run(['pkexec', 'journalctl', '-u', 'openvpn.service'], capture_output=True, text=True)
         return result.stdout.strip() if result.stdout else ""
 
     def on_button2_clicked(self, button):
@@ -129,10 +134,14 @@ class UiLayout(Gtk.Window):
         logs_window.add(overlay)
 
         logs_image = Gtk.Image.new_from_file("Images/ovpn_logs.jpeg")
-        overlay.add(logs_image)
+        overlay.add_overlay(logs_image)
+
+        scrolled_window = Gtk.ScrolledWindow()
+        scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        overlay.add_overlay(scrolled_window)
 
         fixed = Gtk.Fixed()
-        overlay.add_overlay(fixed)
+        scrolled_window.add(fixed)
 
         button_image = Gtk.Image.new_from_file("Images/ovpn_arrow.png")
         button = Gtk.Button()
@@ -140,7 +149,7 @@ class UiLayout(Gtk.Window):
         button.add(button_image)
         overlay.add_overlay(button)
         overlay.set_overlay_pass_through(button, True)
-        button.set_margin_left(20)
+        button.set_margin_start(20)
         button.set_margin_top(20)
         button.set_valign(Gtk.Align.START)
         button.set_halign(Gtk.Align.START)
@@ -148,13 +157,14 @@ class UiLayout(Gtk.Window):
         logs_output = self.get_logs_output()
         logs_label = Gtk.Label()
         logs_label.set_text(logs_output)
-        logs_label.set_size_request(400,700)
-        fixed.put(logs_label, 50, 50)
+        logs_label.set_line_wrap(True)  # Enable line wrapping
+        
+        logs_label_x = 100
+        logs_label_y = 100
+        fixed.put(logs_label, logs_label_x, logs_label_y)
 
         logs_window.connect("destroy", Gtk.main_quit)
-
         logs_window.show_all()
-
         self.hide()
 
     def on_back_to_main_clicked(self, button, logs_window):
