@@ -2,7 +2,7 @@
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 import subprocess
 
 class UiLayout(Gtk.Window):
@@ -32,7 +32,7 @@ class UiLayout(Gtk.Window):
         button.set_valign(Gtk.Align.START)
         button.set_halign(Gtk.Align.START)
 
-        button_image2 = Gtk.Image.new_from_file("Images/ovpn_scroll.png")  # Assuming the correct path for the new image
+        button_image2 = Gtk.Image.new_from_file("Images/ovpn_scroll.png")
         button2 = Gtk.Button()
         button2.connect("clicked", self.on_button2_clicked)
         button2.add(button_image2)
@@ -43,7 +43,7 @@ class UiLayout(Gtk.Window):
         button2.set_valign(Gtk.Align.START)
         button2.set_halign(Gtk.Align.END)
 
-        button_image3 = Gtk.Image.new_from_file("Images/ovpn_plus.png")  # Assuming the correct path for the new image
+        button_image3 = Gtk.Image.new_from_file("Images/ovpn_plus.png")
         button3 = Gtk.Button()
         button3.connect("clicked", self.on_button3_clicked)
         button3.add(button_image3)
@@ -54,10 +54,9 @@ class UiLayout(Gtk.Window):
         button3.set_valign(Gtk.Align.END)
         button3.set_halign(Gtk.Align.END)
 
-    def main():
-        # Initialize CSS for custom styles
+    def css():
         css_provider = Gtk.CssProvider()
-        css_provider.load_from_path("styles.css")  # Assuming you have a styles.css file in the same directory
+        css_provider.load_from_path("styles.css")
 
         context = Gtk.StyleContext()
         screen = Gdk.Screen.get_default()
@@ -66,17 +65,16 @@ class UiLayout(Gtk.Window):
         ui_layout = UiLayout()
         ui_layout.connect("destroy", Gtk.main_quit)
         ui_layout.show_all()
-        Gtk.main()
+        Gtk.css()
 
         if __name__ == "__main__":
-            main()
+            css()
 
 ##############################################################################
 ############################# SETTINGS WINDOW ################################
 ##############################################################################
 
     def on_settings_button_clicked(self, button):
-        # Function to create and show a new window when label1 is clicked
         settings_window = Gtk.Window(title="Settings")
         settings_window.set_default_size(500, 800)
         settings_window.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
@@ -85,11 +83,10 @@ class UiLayout(Gtk.Window):
 
         overlay = Gtk.Overlay()
         settings_window.add(overlay)
-
-        # Add the background image to the overlay
+        
         settings_image = Gtk.Image.new_from_file("Images/ovpn_settings.jpeg")
         overlay.add(settings_image)
-
+        
         fixed = Gtk.Fixed()
         overlay.add_overlay(fixed)
 
@@ -111,7 +108,6 @@ class UiLayout(Gtk.Window):
         self.hide()
 
     def on_back_to_main_clicked(self, button, settings_window):
-        # Callback function to handle the back button in the settings window
         settings_window.hide()
         self.show_all()
 
@@ -119,11 +115,10 @@ class UiLayout(Gtk.Window):
 ############################### LOGS WINDOW ##################################
 ##############################################################################
     def get_logs_output(self):
-        result = subprocess.run(['echo', 'Hello Logs'], capture_output=True, text=True)
+        result = subprocess.run(['journalctl', '-u', 'openvpn.service'], capture_output=True, text=True)
         return result.stdout.strip() if result.stdout else ""
 
     def on_button2_clicked(self, button):
-        # Function to create and show a new window when label1 is clicked
         logs_window = Gtk.Window(title="Logs")
         logs_window.set_default_size(500, 800)
         logs_window.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
@@ -133,14 +128,13 @@ class UiLayout(Gtk.Window):
         overlay = Gtk.Overlay()
         logs_window.add(overlay)
 
-        # Add the background image to the overlay
         logs_image = Gtk.Image.new_from_file("Images/ovpn_logs.jpeg")
         overlay.add(logs_image)
 
         fixed = Gtk.Fixed()
         overlay.add_overlay(fixed)
 
-        button_image = Gtk.Image.new_from_file("Images/ovpn_arrow.png")  # Replace with the path to your button image
+        button_image = Gtk.Image.new_from_file("Images/ovpn_arrow.png")
         button = Gtk.Button()
         button.connect("clicked", self.on_back_to_main_clicked, logs_window)
         button.add(button_image)
@@ -164,7 +158,6 @@ class UiLayout(Gtk.Window):
         self.hide()
 
     def on_back_to_main_clicked(self, button, logs_window):
-        # Callback function to handle the back button in the settings window
         logs_window.hide()
         self.show_all()
 
@@ -173,7 +166,6 @@ class UiLayout(Gtk.Window):
 ##############################################################################
 
     def on_button3_clicked(self, button):
-        # Function to create and show a new window when label1 is clicked
         add_window = Gtk.Window(title="ADD")
         add_window.set_default_size(500, 800)
         add_window.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
@@ -183,14 +175,13 @@ class UiLayout(Gtk.Window):
         overlay = Gtk.Overlay()
         add_window.add(overlay)
 
-        # Add the background image to the overlay
         add_image = Gtk.Image.new_from_file("Images/ovpn_Import.jpeg")
         overlay.add(add_image)
 
         fixed = Gtk.Fixed()
         overlay.add_overlay(fixed)
 
-        button_image = Gtk.Image.new_from_file("Images/ovpn_arrow.png")  # Replace with the path to your button image
+        button_image = Gtk.Image.new_from_file("Images/ovpn_arrow.png")
         button = Gtk.Button()
         button.connect("clicked", self.on_back_to_main_clicked, add_window)
         button.add(button_image)
@@ -201,16 +192,37 @@ class UiLayout(Gtk.Window):
         button.set_valign(Gtk.Align.START)
         button.set_halign(Gtk.Align.START)
 
+        add_button_image2 = Gtk.Image.new_from_file("Images/ovpn_browse.png")
+        add_button = Gtk.Button()
+        add_button.connect("clicked", self.on_add_button_clicked, add_window)  # Pass add_window as an argument
+        add_button.add(add_button_image2)
+        overlay.add_overlay(add_button)
+        overlay.set_overlay_pass_through(add_button, True)
+        add_button.set_margin_right(20)
+        add_button.set_margin_top(20)
+        add_button.set_valign(Gtk.Align.CENTER)
+        add_button.set_halign(Gtk.Align.CENTER)
+        add_button.set_margin_top(350)
+        add_button.set_margin_left(20)
+
         add_window.connect("destroy", Gtk.main_quit)
 
         add_window.show_all()
 
         self.hide()
 
-    def on_back_to_main_clicked(self, button, add_window):
-        # Callback function to handle the back button in the settings window
-        add_window.hide()
-        self.show_all()
+    def on_add_button_clicked(self, button, add_window):
+        dialog = Gtk.FileChooserDialog("Select a file Hoss", self, Gtk.FileChooserAction.OPEN,
+                                        ("Cancel", Gtk.ResponseType.CANCEL,
+                                        "Ok", Gtk.ResponseType.OK))
+        response = dialog.run()
+
+        if response == Gtk.ResponseType.OK:
+            print("You clicked the OK button")
+            print("File selected" + dialog.get_filename())
+        elif response == Gtk.ResponseType.CANCEL:
+            print("User didn't choose any file")
+        dialog.destroy()
 
 ui_layout = UiLayout()
 ui_layout.connect("destroy", Gtk.main_quit)
