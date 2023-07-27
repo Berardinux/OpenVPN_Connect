@@ -4,7 +4,7 @@ if [ ! -d "/etc/openvpn/.ovpn" ]; then
     sudo mkdir /etc/openvpn/.ovpn
 fi
 if [ $# -ne 1 ]; then
-    echo "Usage: $0 <source_file> <destination_file>"
+    echo "Usage: $0 <source_file>"
     exit 1
 fi
 selected_file_path="$1"
@@ -23,12 +23,4 @@ read -r -d '' code_switch << EOM
         switch_with_label_button1 = self.create_switch_with_label_button("Label for Switch 1")
         switch_box.pack_start(switch_with_label_button1, False, False, 0)
 EOM
-awk -i inplace -v code="$code_switch" 'NR==$ln_switch {print code} 1' /opt/OpenVPN/OpenVPN
-
-
-
-cat $selected_file_path
-cat $destination_file
-cat "$nu_switch"
-cat "$ln_switch"
-cat "$code_switch"
+#sudo awk -i inplace -v code="$code_switch" 'NR==$ln_switch {print code} 1' /opt/OpenVPN/OpenVPN

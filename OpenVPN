@@ -279,15 +279,14 @@ class UiLayout(Gtk.Window):
             title="Select a file Hoss",
             parent=self,
             action=Gtk.FileChooserAction.OPEN,
-            buttons=(
-                Gtk.STOCK_CANCEL,
-                Gtk.ResponseType.CANCEL,
-                Gtk.STOCK_OPEN,
-                Gtk.ResponseType.OK,
-            ),
+        )
+        dialog.add_buttons(
+            Gtk.STOCK_CANCEL,
+            Gtk.ResponseType.CANCEL,
+            Gtk.STOCK_OPEN,
+            Gtk.ResponseType.OK,
         )
         response = dialog.run()
-
         if response == Gtk.ResponseType.OK:
             selected_file_path = dialog.get_filename()
             print("You clicked the OK button")
@@ -296,16 +295,15 @@ class UiLayout(Gtk.Window):
             # Copy the selected file to /etc/openvpn
             try:
                 script_path = "/opt/OpenVPN/scripts/add.sh"  # Replace with the actual path to your script
-                destination_path = "/etc/openvpn/.ovpn" + os.path.basename(selected_file_path)
-                command = ["pkexec", "bash", script_path, selected_file_path, destination_path]
+                command = ["pkexec", "bash", script_path, selected_file_path]
                 subprocess.run(command, check=True)
-                self.show_error_dialog("File copied to /etc/openvpn successfully!")
+                self.show_error_dialog("Bash script executed successfully!")
             except FileNotFoundError:
                 self.show_error_dialog("Error: File not found.")
             except PermissionError:
                 self.show_error_dialog("Error: Permission denied. Make sure you have administrative privileges.")
             except Exception as e:
-                self.show_error_dialog("Error: Not the correct file! Needs to be a .ovpn file")
+                self.show_error_dialog("Error: An error occurred while running the bash script.")
         elif response == Gtk.ResponseType.CANCEL:
             self.show_error_dialog("User didn't choose any file")
         dialog.destroy()
