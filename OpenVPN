@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
+#///\\\ "0" ///\\\
 
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk
 import subprocess
+import shutil
+import os
+import getpass
 
 class UiLayout(Gtk.Window):
     def __init__(self):
@@ -27,7 +31,7 @@ class UiLayout(Gtk.Window):
         button.add(button_image)
         overlay.add_overlay(button)
         overlay.set_overlay_pass_through(button, True)
-        button.set_margin_left(20)
+        button.set_margin_start(20)
         button.set_margin_top(20)
         button.set_valign(Gtk.Align.START)
         button.set_halign(Gtk.Align.START)
@@ -38,7 +42,7 @@ class UiLayout(Gtk.Window):
         button2.add(button_image2)
         overlay.add_overlay(button2)
         overlay.set_overlay_pass_through(button2, True)
-        button2.set_margin_right(20)
+        button2.set_margin_end(20)
         button2.set_margin_top(20)
         button2.set_valign(Gtk.Align.START)
         button2.set_halign(Gtk.Align.END)
@@ -49,13 +53,50 @@ class UiLayout(Gtk.Window):
         button3.add(button_image3)
         overlay.add_overlay(button3)
         overlay.set_overlay_pass_through(button3, True)
-        button3.set_margin_right(20)
+        button3.set_margin_end(20)
         button3.set_margin_bottom(20)
         button3.set_valign(Gtk.Align.END)
         button3.set_halign(Gtk.Align.END)
 
 ##############################################################################
 
+        # Create the main box to hold the switches
+        switch_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=20)
+
+        # Create and add the first switch
+#        switch_with_label_button1 = self.create_switch_with_label_button("Label for Switch 1")
+#        switch_box.pack_start(switch_with_label_button1, False, False, 0)
+
+        # Create and add the second switch
+#        switch_with_label_button2 = self.create_switch_with_label_button("Label for Switch 2")
+#        switch_box.pack_start(switch_with_label_button2, False, False, 0)
+
+#        switch_with_label_button3 = self.create_switch_with_label_button("Label for Switch 2")
+#        switch_box.pack_start(switch_with_label_button3, False, False, 0)
+
+#        switch_with_label_button4 = self.create_switch_with_label_button("Label for Switch 2")
+#        switch_box.pack_start(switch_with_label_button4, False, False, 0)
+
+#        switch_with_label_button5 = self.create_switch_with_label_button("Label for Switch 2")
+#        switch_box.pack_start(switch_with_label_button5, False, False, 0)
+
+#///\\\ "END" ///\\\
+        # Add the switch box to the overlay
+        overlay.add_overlay(switch_box)
+        switch_box.set_valign(Gtk.Align.CENTER)
+        switch_box.set_halign(Gtk.Align.CENTER)
+
+        self.show_all()
+
+    def create_switch_with_label_button(self, label_text):
+        switch_with_label_button = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        switch = Gtk.Switch()
+        label = Gtk.Label(label=label_text)
+
+        switch_with_label_button.pack_start(switch, False, False, 0)
+        switch_with_label_button.pack_start(label, False, False, 0)
+
+        return switch_with_label_button
 
 ##############################################################################
 
@@ -74,6 +115,18 @@ class UiLayout(Gtk.Window):
 
         if __name__ == "__main__":
             css()
+
+
+    def show_error_dialog(self, message):
+        dialog = Gtk.MessageDialog(
+            parent=self,
+            flags=0,
+            message_type=Gtk.MessageType.ERROR,
+            buttons=Gtk.ButtonsType.OK,
+            text=message,
+        )
+        dialog.run()
+        dialog.destroy()
 
 ##############################################################################
 ############################# SETTINGS WINDOW ################################
@@ -101,7 +154,7 @@ class UiLayout(Gtk.Window):
         button.add(button_image)
         overlay.add_overlay(button)
         overlay.set_overlay_pass_through(button, True)
-        button.set_margin_left(20)
+        button.set_margin_start(20)
         button.set_margin_top(20)
         button.set_valign(Gtk.Align.START)
         button.set_halign(Gtk.Align.START)
@@ -197,7 +250,7 @@ class UiLayout(Gtk.Window):
         button.add(button_image)
         overlay.add_overlay(button)
         overlay.set_overlay_pass_through(button, True)
-        button.set_margin_left(20)
+        button.set_margin_start(20)
         button.set_margin_top(20)
         button.set_valign(Gtk.Align.START)
         button.set_halign(Gtk.Align.START)
@@ -208,12 +261,12 @@ class UiLayout(Gtk.Window):
         add_button.add(add_button_image2)
         overlay.add_overlay(add_button)
         overlay.set_overlay_pass_through(add_button, True)
-        add_button.set_margin_right(20)
+        add_button.set_margin_end(20)
         add_button.set_margin_top(20)
         add_button.set_valign(Gtk.Align.CENTER)
         add_button.set_halign(Gtk.Align.CENTER)
         add_button.set_margin_top(350)
-        add_button.set_margin_left(20)
+        add_button.set_margin_start(20)
 
         add_window.connect("destroy", Gtk.main_quit)
 
@@ -222,16 +275,39 @@ class UiLayout(Gtk.Window):
         self.hide()
 
     def on_add_button_clicked(self, button, add_window):
-        dialog = Gtk.FileChooserDialog("Select a file Hoss", self, Gtk.FileChooserAction.OPEN,
-                                        ("Cancel", Gtk.ResponseType.CANCEL,
-                                        "Ok", Gtk.ResponseType.OK))
+        dialog = Gtk.FileChooserDialog(
+            title="Select a file Hoss",
+            parent=self,
+            action=Gtk.FileChooserAction.OPEN,
+            buttons=(
+                Gtk.STOCK_CANCEL,
+                Gtk.ResponseType.CANCEL,
+                Gtk.STOCK_OPEN,
+                Gtk.ResponseType.OK,
+            ),
+        )
         response = dialog.run()
 
         if response == Gtk.ResponseType.OK:
+            selected_file_path = dialog.get_filename()
             print("You clicked the OK button")
-            print("File selected" + dialog.get_filename())
+            print("File selected: " + selected_file_path)
+            
+            # Copy the selected file to /etc/openvpn
+            try:
+                script_path = "/opt/OpenVPN/scripts/add.sh"  # Replace with the actual path to your script
+                destination_path = "/etc/openvpn/.ovpn" + os.path.basename(selected_file_path)
+                command = ["pkexec", "bash", script_path, selected_file_path, destination_path]
+                subprocess.run(command, check=True)
+                self.show_error_dialog("File copied to /etc/openvpn successfully!")
+            except FileNotFoundError:
+                self.show_error_dialog("Error: File not found.")
+            except PermissionError:
+                self.show_error_dialog("Error: Permission denied. Make sure you have administrative privileges.")
+            except Exception as e:
+                self.show_error_dialog("Error: Not the correct file! Needs to be a .ovpn file")
         elif response == Gtk.ResponseType.CANCEL:
-            print("User didn't choose any file")
+            self.show_error_dialog("User didn't choose any file")
         dialog.destroy()
 
 ui_layout = UiLayout()
