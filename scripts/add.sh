@@ -39,7 +39,7 @@ if [ "$((nu_switch))" -le 8 ]; then
                 "label": "$name vpn",
                 "command_on": self.run_command_switch_on,
                 "command_off": self.run_command_switch_off,
-                "command_switch_on": ["pkexec", "openvpn", "/etc/openvpn/client/$ovpn_name"],
+                "command_switch_on": ["pkexec", "bash", "/opt/OpenVPN/scripts/on.sh", "$name"],
                 "command_switch_off": ["pkexec", "killall", "openvpn"],
             },
     

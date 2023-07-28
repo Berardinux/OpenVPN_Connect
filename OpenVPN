@@ -83,7 +83,7 @@ class UiLayout(Gtk.Window):
                 "label": "Berardinux vpn",
                 "command_on": self.run_command_switch_on,
                 "command_off": self.run_command_switch_off,
-                "command_switch_on": ["pkexec", "openvpn", "/etc/openvpn/client/Berardinux.ovpn",],
+                "command_switch_on": ["pkexec", "bash", "/opt/OpenVPN/scripts/on.sh", "Berardinux"],
                 "command_switch_off": ["pkexec", "killall", "openvpn"],
             },
 
@@ -226,7 +226,7 @@ class UiLayout(Gtk.Window):
 ############################### LOGS WINDOW ##################################
 ##############################################################################
     def get_logs_output(self):
-        result = subprocess.run(['pkexec', 'journalctl', '-u', 'openvpn.service'], capture_output=True, text=True)
+        result = subprocess.run(['cat', '/opt/OpenVPN/config/vpn.log'], capture_output=True, text=True)
         return result.stdout.strip() if result.stdout else ""
 
     def on_button2_clicked(self, button):
@@ -239,7 +239,7 @@ class UiLayout(Gtk.Window):
         overlay = Gtk.Overlay()
         logs_window.add(overlay)
 
-        logs_image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_logs.jpeg")
+        logs_image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_logs.png")
         overlay.add_overlay(logs_image)
 
         scrolled_window = Gtk.ScrolledWindow()
@@ -264,6 +264,7 @@ class UiLayout(Gtk.Window):
         logs_label = Gtk.Label()
         logs_label.set_text(logs_output)
         logs_label.set_line_wrap(True)  # Enable line wrapping
+        logs_label.set_width_chars(50)
         
         logs_label_x = 100
         logs_label_y = 100
