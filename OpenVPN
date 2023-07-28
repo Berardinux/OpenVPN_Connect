@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-##### --"2"-- #####
+##### --"0"-- #####
 
 import gi
 gi.require_version('Gtk', '3.0')
@@ -59,37 +59,83 @@ class UiLayout(Gtk.Window):
         button3.set_halign(Gtk.Align.END)
 
 ##############################################################################
-
         # Create the main box to hold the switches
         switch_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=20)
 
-        # Create and add the first switch
-#        switch_with_label_button1 = self.create_switch_with_label_button("Label for Switch 1")
-#        switch_box.pack_start(switch_with_label_button1, False, False, 0)
+        self.command_switch_1_on = self.run_command_switch_on
+        self.command_switch_1_off = self.run_command_switch_off
 
-        # Create and add the second switch
-#        switch_with_label_button2 = self.create_switch_with_label_button("Label for Switch 2")
-#        switch_box.pack_start(switch_with_label_button2, False, False, 0)
-
-#        switch_with_label_button3 = self.create_switch_with_label_button("Label for Switch 2")
-#        switch_box.pack_start(switch_with_label_button3, False, False, 0)
-
-#        switch_with_label_button4 = self.create_switch_with_label_button("Label for Switch 2")
-#        switch_box.pack_start(switch_with_label_button4, False, False, 0)
-
-#        switch_with_label_button5 = self.create_switch_with_label_button("Label for Switch 2")
-#        switch_box.pack_start(switch_with_label_button5, False, False, 0)
-# Switch 1
-        switch_with_label_button1 = self.create_switch_with_label_button("Label for Switch 1")
-        switch_box.pack_start(switch_with_label_button1, False, False, 0)
-
-#///\\\ "END" ///\\\
+        # Create and add the switches
+        self.create_switches(switch_box)
         # Add the switch box to the overlay
         overlay.add_overlay(switch_box)
         switch_box.set_valign(Gtk.Align.CENTER)
         switch_box.set_halign(Gtk.Align.CENTER)
 
         self.show_all()
+    def create_switches(self, switch_box):
+        # List of switch configurations, each containing the label and the commands
+        switch_configs = [
+#//////////////////////////////////////////////////////////////////////////////
+            {
+                "label": "Label for Switch 1",
+                "command_on": self.run_command_switch_on,
+                "command_off": self.run_command_switch_off,
+                "command_switch_on": ["echo", "Hello on"],
+                "command_switch_off": ["echo", "Hello off"],
+            },
+            {
+                "label": "Label for Switch 2",
+                "command_on": self.run_command_switch_on,
+                "command_off": self.run_command_switch_off,
+                "command_switch_on": ["echo", "bob on"],
+                "command_switch_off": ["echo", "bob off"],
+            },
+#///\\\ "END" ///\\\
+        ]
+
+        for config in switch_configs:
+            switch_with_label_button = self.create_switch_with_label_button(config["label"])
+            switch_box.pack_start(switch_with_label_button, False, False, 0)
+            switch_with_label_button.get_children()[0].connect("notify::active", self.on_switch_clicked, config)
+
+    # Command functions for Switch 1
+    def run_command_switch_on(self, switch_config):
+        try:
+            # Your command execution code for Switch 1 when turned on
+            command_on = switch_config["command_switch_on"]
+            subprocess.run(command_on)
+            # If the command succeeds:
+            return True
+        except Exception:
+            # If the command fails:
+            return False
+
+    def run_command_switch_off(self, switch_config):
+        try:
+            # Your command execution code for Switch 1 when turned off
+            command_off = switch_config["command_switch_off"]
+            subprocess.run(command_off)
+            # If the command succeeds:
+            return True
+        except Exception:
+            # If the command fails:
+            return False
+        
+    def on_switch_clicked(self, switch, gparam, config):
+        if switch.get_active():
+            # If the switch is turned on
+            if config["command_on"](config):
+                print(f"{config['label']} turned ON successfully!")
+            else:
+                print(f"Error turning {config['label']} ON.")
+        else:
+            # If the switch is turned off
+            if config["command_off"](config):
+                print(f"{config['label']} turned OFF successfully!")
+            else:
+                print(f"Error turning {config['label']} OFF.")
+
 
     def create_switch_with_label_button(self, label_text):
         switch_with_label_button = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -99,8 +145,7 @@ class UiLayout(Gtk.Window):
         switch_with_label_button.pack_start(switch, False, False, 0)
         switch_with_label_button.pack_start(label, False, False, 0)
 
-        return switch_with_label_button
-
+        return switch_with_label_button   
 ##############################################################################
 
     def css():
