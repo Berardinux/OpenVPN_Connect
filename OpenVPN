@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-##### --"0"-- #####
+##### --"1"-- #####
 
 import gi
 gi.require_version('Gtk', '3.0')
@@ -18,14 +18,14 @@ class UiLayout(Gtk.Window):
         fixed = Gtk.Fixed()
         self.add(fixed)
         
-        image = Gtk.Image.new_from_file("Images/ovpn_Profiles.jpeg")
+        image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_Profiles.jpeg")
         fixed.put(image, 0, 0)
 
         overlay = Gtk.Overlay()
         overlay.set_size_request(500, 800)
         fixed.put(overlay, 0, 0)
 
-        button_image = Gtk.Image.new_from_file("Images/ovpn_settings.png")
+        button_image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_settings.png")
         button = Gtk.Button()
         button.connect("clicked", self.on_settings_button_clicked)
         button.add(button_image)
@@ -36,7 +36,7 @@ class UiLayout(Gtk.Window):
         button.set_valign(Gtk.Align.START)
         button.set_halign(Gtk.Align.START)
 
-        button_image2 = Gtk.Image.new_from_file("Images/ovpn_scroll.png")
+        button_image2 = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_scroll.png")
         button2 = Gtk.Button()
         button2.connect("clicked", self.on_button2_clicked)
         button2.add(button_image2)
@@ -47,7 +47,7 @@ class UiLayout(Gtk.Window):
         button2.set_valign(Gtk.Align.START)
         button2.set_halign(Gtk.Align.END)
 
-        button_image3 = Gtk.Image.new_from_file("Images/ovpn_plus.png")
+        button_image3 = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_plus.png")
         button3 = Gtk.Button()
         button3.connect("clicked", self.on_button3_clicked)
         button3.add(button_image3)
@@ -61,6 +61,7 @@ class UiLayout(Gtk.Window):
 ##############################################################################
         # Create the main box to hold the switches
         switch_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=20)
+        self.switches = []  # Store the switches in a list
 
         self.command_switch_1_on = self.run_command_switch_on
         self.command_switch_1_off = self.run_command_switch_off
@@ -77,26 +78,26 @@ class UiLayout(Gtk.Window):
         # List of switch configurations, each containing the label and the commands
         switch_configs = [
 #//////////////////////////////////////////////////////////////////////////////
+# Switch 0
             {
-                "label": "Label for Switch 1",
+                "label": "Berardinux vpn",
                 "command_on": self.run_command_switch_on,
                 "command_off": self.run_command_switch_off,
-                "command_switch_on": ["echo", "Hello on"],
-                "command_switch_off": ["echo", "Hello off"],
+                "command_switch_on": ["pkexec", "openvpn", "/etc/openvpn/client/Berardinux.ovpn",],
+                "command_switch_off": ["pkexec", "killall", "openvpn"],
             },
-            {
-                "label": "Label for Switch 2",
-                "command_on": self.run_command_switch_on,
-                "command_off": self.run_command_switch_off,
-                "command_switch_on": ["echo", "bob on"],
-                "command_switch_off": ["echo", "bob off"],
-            },
+
 #///\\\ "END" ///\\\
         ]
 
         for config in switch_configs:
             switch_with_label_button = self.create_switch_with_label_button(config["label"])
             switch_box.pack_start(switch_with_label_button, False, False, 0)
+
+            # Append the switch to the list
+            self.switches.append(switch_with_label_button.get_children()[0])
+
+            # Connect the "notify::active" signal for each switch to on_switch_clicked
             switch_with_label_button.get_children()[0].connect("notify::active", self.on_switch_clicked, config)
 
     # Command functions for Switch 1
@@ -104,7 +105,7 @@ class UiLayout(Gtk.Window):
         try:
             # Your command execution code for Switch 1 when turned on
             command_on = switch_config["command_switch_on"]
-            subprocess.run(command_on)
+            subprocess.Popen(command_on)
             # If the command succeeds:
             return True
         except Exception:
@@ -125,6 +126,11 @@ class UiLayout(Gtk.Window):
     def on_switch_clicked(self, switch, gparam, config):
         if switch.get_active():
             # If the switch is turned on
+            for s in self.switches:
+                # Turn off all other switches that are on
+                if s != switch and s.get_active():
+                    s.set_active(False)
+
             if config["command_on"](config):
                 print(f"{config['label']} turned ON successfully!")
             else:
@@ -164,7 +170,6 @@ class UiLayout(Gtk.Window):
         if __name__ == "__main__":
             css()
 
-
     def show_error_dialog(self, message):
         dialog = Gtk.MessageDialog(
             parent=self,
@@ -190,13 +195,13 @@ class UiLayout(Gtk.Window):
         overlay = Gtk.Overlay()
         settings_window.add(overlay)
         
-        settings_image = Gtk.Image.new_from_file("Images/ovpn_settings.jpeg")
+        settings_image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_settings.jpeg")
         overlay.add(settings_image)
         
         fixed = Gtk.Fixed()
         overlay.add_overlay(fixed)
 
-        button_image = Gtk.Image.new_from_file("Images/ovpn_arrow.png")  # Replace with the path to your button image
+        button_image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_arrow.png")  # Replace with the path to your button image
         button = Gtk.Button()
         button.connect("clicked", self.on_back_to_main_clicked, settings_window)
         button.add(button_image)
@@ -234,7 +239,7 @@ class UiLayout(Gtk.Window):
         overlay = Gtk.Overlay()
         logs_window.add(overlay)
 
-        logs_image = Gtk.Image.new_from_file("Images/ovpn_logs.jpeg")
+        logs_image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_logs.jpeg")
         overlay.add_overlay(logs_image)
 
         scrolled_window = Gtk.ScrolledWindow()
@@ -244,7 +249,7 @@ class UiLayout(Gtk.Window):
         fixed = Gtk.Fixed()
         scrolled_window.add(fixed)
 
-        button_image = Gtk.Image.new_from_file("Images/ovpn_arrow.png")
+        button_image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_arrow.png")
         button = Gtk.Button()
         button.connect("clicked", self.on_back_to_main_clicked, logs_window)
         button.add(button_image)
@@ -286,13 +291,13 @@ class UiLayout(Gtk.Window):
         overlay = Gtk.Overlay()
         add_window.add(overlay)
 
-        add_image = Gtk.Image.new_from_file("Images/ovpn_Import.jpeg")
+        add_image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_Import.jpeg")
         overlay.add(add_image)
 
         fixed = Gtk.Fixed()
         overlay.add_overlay(fixed)
 
-        button_image = Gtk.Image.new_from_file("Images/ovpn_arrow.png")
+        button_image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_arrow.png")
         button = Gtk.Button()
         button.connect("clicked", self.on_back_to_main_clicked, add_window)
         button.add(button_image)
@@ -303,7 +308,7 @@ class UiLayout(Gtk.Window):
         button.set_valign(Gtk.Align.START)
         button.set_halign(Gtk.Align.START)
 
-        add_button_image2 = Gtk.Image.new_from_file("Images/ovpn_browse.png")
+        add_button_image2 = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_browse.png")
         add_button = Gtk.Button()
         add_button.connect("clicked", self.on_add_button_clicked, add_window)  # Pass add_window as an argument
         add_button.add(add_button_image2)
@@ -317,14 +322,12 @@ class UiLayout(Gtk.Window):
         add_button.set_margin_start(20)
 
         add_window.connect("destroy", Gtk.main_quit)
-
         add_window.show_all()
-
         self.hide()
 
     def on_add_button_clicked(self, button, add_window):
         dialog = Gtk.FileChooserDialog(
-            title="Select a file Hoss",
+            title="Select your .ovpn file",
             parent=self,
             action=Gtk.FileChooserAction.OPEN,
         )
