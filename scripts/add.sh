@@ -16,11 +16,18 @@ else
     exit 1
 fi
 nu_switch=$(cat /opt/OpenVPN/OpenVPN | sed -n '2p' | cut -d '"' -f 2)
+new_nu=$((nu_switch+1))
 ln_switch=$(($(cat /opt/OpenVPN/OpenVPN | grep -n '"END" ///' | cut -d ':' -f 1) - 1))
 
-read -r -d '' code_switch << EOM
+if [ "$nu_switch" -le 8 ]; then
+    read -r -d '' code_switch << EOM
         # Switch $nu_switch
-        switch_with_label_button1 = self.create_switch_with_label_button("Label for Switch 1")
-        switch_box.pack_start(switch_with_label_button1, False, False, 0)
+        switch_with_label_button$nu_switch = self.create_switch_with_label_button("Label for Switch 1")
+        switch_box.pack_start(switch_with_label_button$nu_switch, False, False, 0)
+    
 EOM
-#sudo awk -i inplace -v code="$code_switch" 'NR==$ln_switch {print code} 1' /opt/OpenVPN/OpenVPN
+    sudo sed -i "s/##### --\"$nu_switch\"-- #####/##### --\"$new_nu\"-- #####/" "/opt/OpenVPN/OpenVPN"
+    awk -v line="$ln_switch" -v code="$code_switch" 'NR==line{print code}1' /opt/OpenVPN/OpenVPN | sudo tee /opt/OpenVPN/OpenVPN >/dev/null
+else
+    echo "$nu_switchs Switchs is the limit"
+fi
