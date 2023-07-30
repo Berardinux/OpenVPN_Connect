@@ -34,13 +34,14 @@ fi
 
 if [ "$((nu_switch))" -le 8 ]; then
     read -r -d '' code_switch << EOM
-        # Switch {"$nu_switch"}
+            # Switch {"$name"}
             {
                 "label": "$name vpn",
                 "command_on": self.run_command_switch_on,
                 "command_off": self.run_command_switch_off,
                 "command_switch_on": ["pkexec", "bash", "/opt/OpenVPN/scripts/on.sh", "$name"],
                 "command_switch_off": ["pkexec", "killall", "openvpn"],
+                "command_trash_button": ["pkexec", "bash", "/opt/OpenVPN/scripts/rm.sh", "$name"],
             },
     
 EOM

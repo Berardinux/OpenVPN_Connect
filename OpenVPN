@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-##### --{"2"}-- #####
+##### --{"0"}-- #####
 
 import gi
 gi.require_version('Gtk', '3.0')
@@ -25,16 +25,16 @@ class UiLayout(Gtk.Window):
         overlay.set_size_request(500, 800)
         fixed.put(overlay, 0, 0)
 
-        button_image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_settings.png")
-        button = Gtk.Button()
-        button.connect("clicked", self.on_settings_button_clicked)
-        button.add(button_image)
-        overlay.add_overlay(button)
-        overlay.set_overlay_pass_through(button, True)
-        button.set_margin_start(20)
-        button.set_margin_top(20)
-        button.set_valign(Gtk.Align.START)
-        button.set_halign(Gtk.Align.START)
+        button_image_settings = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_settings.png")
+        button_settings = Gtk.Button()
+        button_settings.connect("clicked", self.on_settings_button_clicked)  # Connect the method here
+        button_settings.add(button_image_settings)
+        overlay.add_overlay(button_settings)
+        overlay.set_overlay_pass_through(button_settings, True)
+        button_settings.set_margin_start(20)
+        button_settings.set_margin_top(20)
+        button_settings.set_valign(Gtk.Align.START)
+        button_settings.set_halign(Gtk.Align.START)
 
         button_image2 = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_scroll.png")
         button2 = Gtk.Button()
@@ -79,37 +79,17 @@ class UiLayout(Gtk.Window):
         switch_configs = [
 #//////////////////////////////////////////////////////////////////////////////
 
-# Switch {"0"}
-            {
-                "label": "Berardinux vpn",
-                "command_on": self.run_command_switch_on,
-                "command_off": self.run_command_switch_off,
-                "command_switch_on": ["pkexec", "bash", "/opt/OpenVPN/scripts/on.sh", "Berardinux"],
-                "command_switch_off": ["pkexec", "killall", "openvpn"],
-            },
-# Switch {"1"}
-            {
-                "label": "JP-OVPN vpn",
-                "command_on": self.run_command_switch_on,
-                "command_off": self.run_command_switch_off,
-                "command_switch_on": ["pkexec", "bash", "/opt/OpenVPN/scripts/on.sh", "JP-OVPN"],
-                "command_switch_off": ["pkexec", "killall", "openvpn"],
-            },
-
 #///\\\ --{"END"}-- ///\\\
         ]
 
         for config in switch_configs:
-            switch_with_label_button = self.create_switch_with_label_button(config["label"])
+            # ... (Previous code remains the same)
+            switch_with_label_button = self.create_switch_with_label_button(config["label"], config["command_trash_button"])
             switch_box.pack_start(switch_with_label_button, False, False, 0)
-
-            # Append the switch to the list
             self.switches.append(switch_with_label_button.get_children()[0])
-
-            # Connect the "notify::active" signal for each switch to on_switch_clicked
             switch_with_label_button.get_children()[0].connect("notify::active", self.on_switch_clicked, config)
 
-    # Command functions for Switch 1
+# Command functions for Switch 1
     def run_command_switch_on(self, switch_config):
         try:
             # Your command execution code for Switch 1 when turned on
@@ -151,16 +131,40 @@ class UiLayout(Gtk.Window):
             else:
                 print(f"Error turning {config['label']} OFF.")
 
-
-    def create_switch_with_label_button(self, label_text):
+    def create_switch_with_label_button(self, label_text, trash_button_config):
         switch_with_label_button = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         switch = Gtk.Switch()
+        image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_trash.png")  # Replace with the path to your image
         label = Gtk.Label(label=label_text)
+        trash_button = Gtk.Button()  # Renamed the button to "trash_button"
+        trash_button.set_image(image)  # Set the image for the "trash_button"
+        trash_button.connect("clicked", self.on_trash_button_clicked, trash_button_config)
+
+        image_and_label_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
+        image_and_label_box.pack_start(image, False, False, 0)
+        image_and_label_box.pack_start(label, False, False, 0)
 
         switch_with_label_button.pack_start(switch, False, False, 0)
-        switch_with_label_button.pack_start(label, False, False, 0)
+        switch_with_label_button.pack_start(trash_button, False, False, 0)  # Add the "trash_button" to the box
+        switch_with_label_button.pack_start(image_and_label_box, False, False, 0)  # Add the image and label box to the main button box
 
-        return switch_with_label_button   
+        return switch_with_label_button
+    def on_trash_button_clicked(self, button, trash_button_config):
+        try:
+            # Use subprocess.run instead of subprocess.Popen
+            result = subprocess.run(trash_button_config, capture_output=True, text=True)
+
+            if result.returncode == 0:
+                # If the command succeeds:
+                print(f"{trash_button_config} executed successfully!")
+            else:
+                # If the command fails:
+                print(f"Error executing {trash_button_config}.\nError Output: {result.stderr}")
+        except Exception as e:
+            # If there is any other exception:
+            print("Error executing the command:", e)
+
+
 ##############################################################################
 
     def show_error_dialog(self, message):
@@ -177,6 +181,9 @@ class UiLayout(Gtk.Window):
 ##############################################################################
 ############################# SETTINGS WINDOW ################################
 ##############################################################################
+    def on_settings_back_to_main_clicked(self, button, settings_window):
+        settings_window.hide()
+        self.show_all()
 
     def on_settings_button_clicked(self, button):
         settings_window = Gtk.Window(title="Settings")
@@ -187,37 +194,35 @@ class UiLayout(Gtk.Window):
 
         overlay = Gtk.Overlay()
         settings_window.add(overlay)
-        
+
         settings_image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_settings.jpeg")
         overlay.add(settings_image)
         
         fixed = Gtk.Fixed()
         overlay.add_overlay(fixed)
 
-        button_image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_arrow.png")  # Replace with the path to your button image
-        button = Gtk.Button()
-        button.connect("clicked", self.on_back_to_main_clicked, settings_window)
-        button.add(button_image)
-        overlay.add_overlay(button)
-        overlay.set_overlay_pass_through(button, True)
-        button.set_margin_start(20)
-        button.set_margin_top(20)
-        button.set_valign(Gtk.Align.START)
-        button.set_halign(Gtk.Align.START)
+        back_button_image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_arrow.png")
+        back_button = Gtk.Button()
+        back_button.add(back_button_image)
+        overlay.add_overlay(back_button)
+        overlay.set_overlay_pass_through(back_button, True)
+        back_button.set_margin_start(20)
+        back_button.set_margin_top(20)
+        back_button.set_valign(Gtk.Align.START)
+        back_button.set_halign(Gtk.Align.START)
+        back_button.connect("clicked", self.on_settings_back_to_main_clicked, settings_window)
 
         settings_window.connect("destroy", Gtk.main_quit)
-
         settings_window.show_all()
-
         self.hide()
-
-    def on_back_to_main_clicked(self, button, settings_window):
-        settings_window.hide()
-        self.show_all()
 
 ##############################################################################
 ############################### LOGS WINDOW ##################################
 ##############################################################################
+    def on_logs_back_to_main_clicked(self, button, logs_window):
+        logs_window.hide()
+        self.show_all()
+    
     def get_logs_output(self):
         result = subprocess.run(['cat', '/opt/OpenVPN/config/vpn.log'], capture_output=True, text=True)
         return result.stdout.strip() if result.stdout else ""
@@ -244,7 +249,7 @@ class UiLayout(Gtk.Window):
 
         button_image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_arrow.png")
         button = Gtk.Button()
-        button.connect("clicked", self.on_back_to_main_clicked, logs_window)
+        button.connect("clicked", self.on_logs_back_to_main_clicked, logs_window)  # Use the renamed method here
         button.add(button_image)
         overlay.add_overlay(button)
         overlay.set_overlay_pass_through(button, True)
