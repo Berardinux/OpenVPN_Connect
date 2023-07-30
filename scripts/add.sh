@@ -21,7 +21,7 @@ fi
 
 nu_switch=$(cat /opt/OpenVPN/OpenVPN | sed -n '2p' | cut -d '"' -f 2)
 new_nu=$((nu_switch+1))
-ln_switch=$(($(cat /opt/OpenVPN/OpenVPN | grep -n '"END" ///' | cut -d ':' -f 1) - 1))
+ln_switch=$(($(cat /opt/OpenVPN/OpenVPN | grep -n '{"END"}' | cut -d ':' -f 1) - 1))
 ovpn_name=$(ls /etc/openvpn/.ovpn/)
 name=$(echo "$ovpn_name" | cut -d "." -f 1)
 
@@ -34,7 +34,7 @@ fi
 
 if [ "$((nu_switch))" -le 8 ]; then
     read -r -d '' code_switch << EOM
-        # Switch $nu_switch
+        # Switch {"$nu_switch"}
             {
                 "label": "$name vpn",
                 "command_on": self.run_command_switch_on,
@@ -44,7 +44,7 @@ if [ "$((nu_switch))" -le 8 ]; then
             },
     
 EOM
-    sudo sed -i "s/##### --\"$nu_switch\"-- #####/##### --\"$new_nu\"-- #####/" "/opt/OpenVPN/OpenVPN"
+    sudo sed -i "s/##### --{\"$nu_switch\"}-- #####/##### --{\"$new_nu\"}-- #####/" "/opt/OpenVPN/OpenVPN"
     awk -v line="$ln_switch" -v code="$code_switch" 'NR==line{print code}1' /opt/OpenVPN/OpenVPN | sudo tee /opt/OpenVPN/OpenVPN >/dev/null
 else
     echo "$nu_switch There are to many switchs"

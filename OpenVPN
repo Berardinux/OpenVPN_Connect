@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-##### --"2"-- #####
+##### --{"2"}-- #####
 
 import gi
 gi.require_version('Gtk', '3.0')
@@ -78,7 +78,8 @@ class UiLayout(Gtk.Window):
         # List of switch configurations, each containing the label and the commands
         switch_configs = [
 #//////////////////////////////////////////////////////////////////////////////
-# Switch 0
+
+# Switch {"0"}
             {
                 "label": "Berardinux vpn",
                 "command_on": self.run_command_switch_on,
@@ -86,7 +87,7 @@ class UiLayout(Gtk.Window):
                 "command_switch_on": ["pkexec", "bash", "/opt/OpenVPN/scripts/on.sh", "Berardinux"],
                 "command_switch_off": ["pkexec", "killall", "openvpn"],
             },
-# Switch 1
+# Switch {"1"}
             {
                 "label": "JP-OVPN vpn",
                 "command_on": self.run_command_switch_on,
@@ -95,7 +96,7 @@ class UiLayout(Gtk.Window):
                 "command_switch_off": ["pkexec", "killall", "openvpn"],
             },
 
-#///\\\ "END" ///\\\
+#///\\\ --{"END"}-- ///\\\
         ]
 
         for config in switch_configs:

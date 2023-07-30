@@ -1,47 +1,344 @@
-2023-07-28 16:52:11 DEPRECATED OPTION: --cipher set to 'AES-256-CBC' but missing in --data-ciphers (AES-256-GCM:AES-128-GCM:CHACHA20-POLY1305). OpenVPN ignores --cipher for cipher negotiations. 
-2023-07-28 16:52:11 Note: Kernel support for ovpn-dco missing, disabling data channel offload.
-2023-07-28 16:52:11 OpenVPN 2.6.5 [git:makepkg/cbc9e0ce412e7b42+] x86_64-pc-linux-gnu [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [PKCS11] [MH/PKTINFO] [AEAD] [DCO] built on Jun 13 2023
-2023-07-28 16:52:11 library versions: OpenSSL 3.1.1 30 May 2023, LZO 2.10
-2023-07-28 16:52:11 DCO version: N/A
-2023-07-28 16:52:11 TCP/UDP: Preserving recently used remote address: [AF_INET]24.239.230.19:20000
-2023-07-28 16:52:11 Socket Buffers: R=[212992->212992] S=[212992->212992]
-2023-07-28 16:52:11 UDPv4 link local: (not bound)
-2023-07-28 16:52:11 UDPv4 link remote: [AF_INET]24.239.230.19:20000
-2023-07-28 16:52:11 TLS: Initial packet from [AF_INET]24.239.230.19:20000, sid=51b59bab 1082d746
-2023-07-28 16:52:11 VERIFY OK: depth=1, CN=Easy-RSA CA
-2023-07-28 16:52:11 VERIFY KU OK
-2023-07-28 16:52:11 Validating certificate extended key usage
-2023-07-28 16:52:11 ++ Certificate has EKU (str) TLS Web Server Authentication, expects TLS Web Server Authentication
-2023-07-28 16:52:11 VERIFY EKU OK
-2023-07-28 16:52:11 VERIFY OK: depth=0, CN=server
-2023-07-28 16:52:11 Control Channel: TLSv1.3, cipher TLSv1.3 TLS_AES_256_GCM_SHA384, peer certificate: 2048 bit RSA, signature: RSA-SHA256
-2023-07-28 16:52:11 [server] Peer Connection Initiated with [AF_INET]24.239.230.19:20000
-2023-07-28 16:52:11 TLS: move_session: dest=TM_ACTIVE src=TM_INITIAL reinit_src=1
-2023-07-28 16:52:11 TLS: tls_multi_process: initial untrusted session promoted to trusted
-2023-07-28 16:52:12 SENT CONTROL [server]: 'PUSH_REQUEST' (status=1)
-2023-07-28 16:52:12 PUSH: Received control message: 'PUSH_REPLY,redirect-gateway def1 bypass-dhcp,dhcp-option DNS 10.69.69.135,block-outside-dns,route-gateway 10.8.0.1,topology subnet,ping 10,ping-restart 120,ifconfig 10.8.0.2 255.255.255.0,peer-id 0,cipher AES-256-GCM'
-2023-07-28 16:52:12 Unrecognized option or missing or extra parameter(s) in [PUSH-OPTIONS]:3: block-outside-dns (2.6.5)
-2023-07-28 16:52:12 OPTIONS IMPORT: --ifconfig/up options modified
-2023-07-28 16:52:12 OPTIONS IMPORT: route options modified
-2023-07-28 16:52:12 OPTIONS IMPORT: route-related options modified
-2023-07-28 16:52:12 OPTIONS IMPORT: --ip-win32 and/or --dhcp-option options modified
-2023-07-28 16:52:12 net_route_v4_best_gw query: dst 0.0.0.0
-2023-07-28 16:52:12 net_route_v4_best_gw result: via 192.168.115.32 dev wlp4s0
-2023-07-28 16:52:12 ROUTE_GATEWAY 192.168.115.32/255.255.255.0 IFACE=wlp4s0 HWADDR=b0:35:9f:9e:40:35
-2023-07-28 16:52:12 TUN/TAP device tun0 opened
-2023-07-28 16:52:12 net_iface_mtu_set: mtu 1500 for tun0
-2023-07-28 16:52:12 net_iface_up: set tun0 up
-2023-07-28 16:52:12 net_addr_v4_add: 10.8.0.2/24 dev tun0
-2023-07-28 16:52:12 net_route_v4_add: 24.239.230.19/32 via 192.168.115.32 dev [NULL] table 0 metric -1
-2023-07-28 16:52:12 net_route_v4_add: 0.0.0.0/1 via 10.8.0.1 dev [NULL] table 0 metric -1
-2023-07-28 16:52:12 net_route_v4_add: 128.0.0.0/1 via 10.8.0.1 dev [NULL] table 0 metric -1
-2023-07-28 16:52:12 Initialization Sequence Completed
-2023-07-28 16:52:12 Data Channel: cipher 'AES-256-GCM', peer-id: 0
-2023-07-28 16:52:12 Timers: ping 10, ping-restart 120
-2023-07-28 16:52:53 event_wait : Interrupted system call (fd=-1,code=4)
-2023-07-28 16:52:53 net_route_v4_del: 24.239.230.19/32 via 192.168.115.32 dev [NULL] table 0 metric -1
-2023-07-28 16:52:53 net_route_v4_del: 0.0.0.0/1 via 10.8.0.1 dev [NULL] table 0 metric -1
-2023-07-28 16:52:53 net_route_v4_del: 128.0.0.0/1 via 10.8.0.1 dev [NULL] table 0 metric -1
-2023-07-28 16:52:53 Closing TUN/TAP interface
-2023-07-28 16:52:53 net_addr_v4_del: 10.8.0.2 dev tun0
-2023-07-28 16:52:53 SIGTERM[hard,] received, process exiting
+2023-07-29 20:58:03 Unrecognized option or missing or extra parameter(s) in /etc/openvpn/client/JP-OVPN.ovpn:19: block-outside-dns (2.6.3)
+2023-07-29 20:58:03 Note: Kernel support for ovpn-dco missing, disabling data channel offload.
+2023-07-29 20:58:03 OpenVPN 2.6.3 x86_64-pc-linux-gnu [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [PKCS11] [MH/PKTINFO] [AEAD] [DCO]
+2023-07-29 20:58:03 library versions: OpenSSL 3.0.9 30 May 2023, LZO 2.10
+2023-07-29 20:58:03 DCO version: N/A
+2023-07-29 20:58:03 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 20:58:03 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 20:58:03 UDPv4 link local: (not bound)
+2023-07-29 20:58:03 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 20:58:03 TLS: Initial packet from [AF_INET]139.162.67.93:1194, sid=8c5d179f 3c458ea2
+2023-07-29 20:58:03 VERIFY OK: depth=1, CN=cn_TWl6ineGepCIk0qc
+2023-07-29 20:58:03 VERIFY KU OK
+2023-07-29 20:58:03 Validating certificate extended key usage
+2023-07-29 20:58:03 ++ Certificate has EKU (str) TLS Web Server Authentication, expects TLS Web Server Authentication
+2023-07-29 20:58:03 VERIFY EKU OK
+2023-07-29 20:58:03 VERIFY X509NAME OK: CN=server_KIgdanQo5P0GCVb8
+2023-07-29 20:58:03 VERIFY OK: depth=0, CN=server_KIgdanQo5P0GCVb8
+2023-07-29 20:58:03 Control Channel: TLSv1.3, cipher TLSv1.3 TLS_AES_256_GCM_SHA384, peer certificate: 256 bit ECprime256v1, signature: ecdsa-with-SHA256
+2023-07-29 20:58:03 [server_KIgdanQo5P0GCVb8] Peer Connection Initiated with [AF_INET]139.162.67.93:1194
+2023-07-29 20:58:03 TLS: move_session: dest=TM_ACTIVE src=TM_INITIAL reinit_src=1
+2023-07-29 20:58:03 TLS: tls_multi_process: initial untrusted session promoted to trusted
+2023-07-29 20:58:03 PUSH: Received control message: 'PUSH_REPLY,dhcp-option DNS 208.67.222.222,dhcp-option DNS 208.67.220.220,redirect-gateway def1 bypass-dhcp,tun-ipv6,route-ipv6 2000::/3,redirect-gateway ipv6,tun-ipv6,route-gateway 10.8.0.1,topology subnet,ping 10,ping-restart 120,ifconfig-ipv6 fd42:42:42:42::2/112 fd42:42:42:42::1,ifconfig 10.8.0.2 255.255.255.0,peer-id 1,cipher AES-128-GCM,protocol-flags cc-exit tls-ekm dyn-tls-crypt,tun-mtu 1500'
+2023-07-29 20:58:03 WARNING: You have specified redirect-gateway and redirect-private at the same time (or the same option multiple times). This is not well supported and may lead to unexpected results
+2023-07-29 20:58:03 OPTIONS IMPORT: --ifconfig/up options modified
+2023-07-29 20:58:03 OPTIONS IMPORT: route options modified
+2023-07-29 20:58:03 OPTIONS IMPORT: route-related options modified
+2023-07-29 20:58:03 OPTIONS IMPORT: --ip-win32 and/or --dhcp-option options modified
+2023-07-29 20:58:03 OPTIONS IMPORT: tun-mtu set to 1500
+2023-07-29 20:58:03 net_route_v4_best_gw query: dst 0.0.0.0
+2023-07-29 20:58:03 net_route_v4_best_gw result: via 10.69.69.1 dev wlp0s20f3
+2023-07-29 20:58:03 ROUTE_GATEWAY 10.69.69.1/255.255.255.0 IFACE=wlp0s20f3 HWADDR=54:6c:eb:f1:80:97
+2023-07-29 20:58:03 GDG6: remote_host_ipv6=n/a
+2023-07-29 20:58:03 net_route_v6_best_gw query: dst ::
+2023-07-29 20:58:03 net_route_v6_best_gw result: via :: dev tun0
+2023-07-29 20:58:03 ROUTE6_GATEWAY :: ON_LINK IFACE=tun0
+2023-07-29 20:58:03 TUN/TAP device tun1 opened
+2023-07-29 20:58:03 net_iface_mtu_set: mtu 1500 for tun1
+2023-07-29 20:58:03 net_iface_up: set tun1 up
+2023-07-29 20:58:03 net_addr_v4_add: 10.8.0.2/24 dev tun1
+2023-07-29 20:58:03 net_iface_mtu_set: mtu 1500 for tun1
+2023-07-29 20:58:03 net_iface_up: set tun1 up
+2023-07-29 20:58:03 net_addr_v6_add: fd42:42:42:42::2/112 dev tun1
+2023-07-29 20:58:03 net_route_v4_add: 139.162.67.93/32 via 10.69.69.1 dev [NULL] table 0 metric -1
+2023-07-29 20:58:03 sitnl_send: rtnl: generic error (-17): File exists
+2023-07-29 20:58:03 NOTE: Linux route add command failed because route exists
+2023-07-29 20:58:03 net_route_v4_add: 0.0.0.0/1 via 10.8.0.1 dev [NULL] table 0 metric -1
+2023-07-29 20:58:03 sitnl_send: rtnl: generic error (-17): File exists
+2023-07-29 20:58:03 NOTE: Linux route add command failed because route exists
+2023-07-29 20:58:03 net_route_v4_add: 128.0.0.0/1 via 10.8.0.1 dev [NULL] table 0 metric -1
+2023-07-29 20:58:03 sitnl_send: rtnl: generic error (-17): File exists
+2023-07-29 20:58:03 NOTE: Linux route add command failed because route exists
+2023-07-29 20:58:03 add_route_ipv6(2000::/3 -> fd42:42:42:42::1 metric -1) dev tun1
+2023-07-29 20:58:03 net_route_v6_add: 2000::/3 via :: dev tun1 table 0 metric -1
+2023-07-29 20:58:03 add_route_ipv6(::/3 -> fd42:42:42:42::1 metric -1) dev tun1
+2023-07-29 20:58:03 net_route_v6_add: ::/3 via :: dev tun1 table 0 metric -1
+2023-07-29 20:58:03 add_route_ipv6(2000::/4 -> fd42:42:42:42::1 metric -1) dev tun1
+2023-07-29 20:58:03 net_route_v6_add: 2000::/4 via :: dev tun1 table 0 metric -1
+2023-07-29 20:58:03 add_route_ipv6(3000::/4 -> fd42:42:42:42::1 metric -1) dev tun1
+2023-07-29 20:58:03 net_route_v6_add: 3000::/4 via :: dev tun1 table 0 metric -1
+2023-07-29 2023-07-29 21:00:04 [server_KIgdanQo5P0GCVb8] Inactivity timeout (--ping-restart), restarting
+2023-07-29 21:00:04 SIGUSR1[soft,ping-restart] received, process restarting
+2023-07-29 21:00:04 Restart pause, 1 second(s)
+2023-07-29 21:00:05 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:00:05 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:00:05 UDPv4 link local: (not boun2023-07-29 21:02:00 [server_KIgdanQo5P0GCVb8] Inactivity timeout (--ping-restart), restarting
+2023-07-29 21:02:00 SIGUSR1[soft,ping-restart] received, process restarting
+2023-07-29 21:02:00 Restart pause, 1 second(s)
+2023-07-29 21:02:01 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:02:01 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:02:01 UDPv4 link local: (not bound)
+2023-07-29 21:02:01 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 21:02:02 TLS: Initial packet from [AF_INET]139.162.67.93:1194, sid=8df3dd20 bf040560
+2023-07-29 21:02:02 VERIFY OK: depth=1, CN=cn_TWl6ineGepCIk0qc
+2023-07-29 21:02:02 VERIFY KU OK
+2023-07-29 21:02:02 Validating certificate extended key usage
+2023-07-29 21:02:02 ++ Certificate has EKU (str) TLS Web Server Authentication, expects TLS Web Server Authentication
+2023-07-29 21:02:02 VERIFY EKU OK
+2023-07-29 21:02:02 VERIFY X509NAME OK: CN=server_KIgdanQo5P0GCVb8
+2023-07-29 21:02:02 VERIFY OK: depth=0, CN=server_KIgdanQo5P0GCVb8
+2023-07-29 21:02:02 Control Channel: TLSv1.3, cipher TLSv1.3 TLS_AES_256_GCM_SHA384, peer certificate: 256 bit ECprime256v1, signature: ecdsa-with-SHA256
+2023-07-29 21:02:02 [server_KIgdanQo5P0GCVb8] Peer Connection Initiated with [AF_INET]139.162.67.93:1194
+2023-07-29 21:02:02 TLS: move_session: dest=TM_ACTIVE src=TM_INITIAL reinit_src=1
+2023-07-29 21:02:02 TLS: tls_multi_process: initial untrusted session promoted to trusted
+2023-07-29 21:02:02 PUSH: Received control message: 'PUSH_REPLY,dhcp-option DNS 208.67.222.222,dhcp-option DNS 208.67.220.220,redirect-gateway def1 bypass-dhcp,tun-ipv6,route-ipv6 2000::/3,redirect-gateway ipv6,tun-ipv6,route-gateway 10.8.0.1,topology subnet,ping 10,ping-restart 120,ifconfig-ipv6 fd42:42:42:42::2/112 fd42:42:42:42::1,ifconfig 10.8.0.2 255.255.255.0,peer-id 1,cipher AES-128-GCM,protocol-flags cc-exit tls-ekm dyn-tls-crypt,tun-mtu 1500'
+2023-07-29 21:02:02 WARNING: You have specified redirect-gateway and redirect-private at the same time (or the same option multiple times). This is not well supported and may lead to unexpected results
+2023-07-29 21:02:02 OPTIONS IMPORT: --ifconfig/up options modified
+2023-07-29 21:02:02 OPTIONS IMPORT: route options modified
+2023-07-29 21:02:02 OPTIONS IMPORT: route-related options modified
+2023-07-29 21:02:02 OPTIONS IMPORT: --ip-win32 and2023-07-29 21:03:52 [server_KIgdanQo5P0GCVb8] Inactivity timeout (--ping-restart), restarting
+2023-07-29 21:03:52 SIGUSR1[soft,ping-restart] received, process restarting
+2023-07-29 21:03:52 Restart pause, 1 second(s)
+2023-07-29 21:03:53 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:03:53 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:03:53 UDPv4 link local: (not boun2023-07-29 21:05:52 [server_KIgdanQo5P0GCVb8] Inactivity timeout (--ping-restart), restarting
+2023-07-29 21:05:52 SIGUSR1[soft,ping-restart] received, process restarting
+2023-07-29 21:05:52 Restart pause, 1 second(s)
+2023-07-29 21:05:53 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:05:53 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:05:53 UDPv4 link local: (not bound)
+2023-07-29 21:05:53 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 21:05:54 TLS: Initial packet from [AF_INET]139.162.67.93:1194, sid=b1f616d3 a3e29d81
+2023-07-29 21:05:54 VERIFY OK: depth=1, CN=cn_TWl6ineGepCIk0qc
+2023-07-29 21:05:54 VERIFY KU OK
+2023-07-29 21:05:54 Validating certificate extended key usage
+2023-07-29 21:05:54 ++ Certificate has EKU (str) TLS Web Server Authentication, expects TLS Web Server Authentication
+2023-07-29 21:05:54 VERIFY EKU OK
+2023-07-29 21:05:54 VERIFY X509NAME OK: CN=server_KIgdanQo5P0GCVb8
+2023-07-29 21:05:54 VERIFY OK: depth=0, CN=server_KIgdanQo5P0GCVb8
+2023-07-29 21:05:54 Control Channel: TLSv1.3, cipher TLSv1.3 TLS_AES_256_GCM_SHA384, peer certificate: 256 bit ECprime256v1, signature: ecdsa-with-SHA256
+2023-07-29 21:05:54 [server_KIgdanQo5P0GCVb8] Peer Connection Initiated with [AF_INET]139.162.67.93:1194
+2023-07-29 21:05:54 TLS: move_session: dest=TM_ACTIVE src=TM_INITIAL reinit_src=1
+2023-07-29 21:05:54 TLS: tls_multi_process: initial untrusted session promoted to trusted
+2023-07-29 21:05:54 PUSH: Received control message: 'PUSH_REPLY,dhcp-option DNS 208.67.222.222,dhcp-option DNS 208.67.220.220,redirect-gateway def1 bypass-dhcp,tun-ipv6,route-ipv6 2000::/3,redirect-gateway ipv6,tun-ipv6,route-gateway 10.8.0.1,topology subnet,ping 10,ping-restart 120,ifconfig-ipv6 fd42:42:42:42::2/112 fd42:42:42:42::1,ifconfig 10.8.0.2 255.255.255.0,peer-id 1,cipher AES-128-GCM,protocol-flags cc-exit tls-ekm dyn-tls-crypt,tun-mtu 1500'
+2023-07-29 21:05:54 WARNING: You have specified redirect-gateway and redirect-private at the same time (or the same option multiple times). This is not well supported and may lead to unexpected results
+2023-07-29 21:05:54 OPTIONS IMPORT: --ifconfig/up options modified
+2023-07-29 21:05:54 OPTIONS IMPORT: route options modified
+2023-07-29 21:05:54 OPTIONS IMPORT: route-related options modified
+2023-07-29 21:05:54 OPTIONS IMPORT: --ip-win32 and2023-07-29 21:07:54 [server_KIgdanQo5P0GCVb8] Inactivity timeout (--ping-restart), restarting
+2023-07-29 21:07:54 SIGUSR1[soft,ping-restart] received, process restarting
+2023-07-29 21:07:54 Restart pause, 1 second(s)
+2023-07-29 21:07:55 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:07:55 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:07:55 UDPv4 link local: (not boun2023-07-29 21:09:46 [server_KIgdanQo5P0GCVb8] Inactivity timeout (--ping-restart), restarting
+2023-07-29 21:09:46 SIGUSR1[soft,ping-restart] received, process restarting
+2023-07-29 21:09:46 Restart pause, 1 second(s)
+2023-07-29 21:09:47 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:09:47 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:09:47 UDPv4 link local: (not bound)
+2023-07-29 21:09:47 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 21:09:48 TLS: Initial packet from [AF_INET]139.162.67.93:1194, sid=c8206236 1068f608
+2023-07-29 21:09:48 VERIFY OK: depth=1, CN=cn_TWl6ineGepCIk0qc
+2023-07-29 21:09:48 VERIFY KU OK
+2023-07-29 21:09:48 Validating certificate extended key usage
+2023-07-29 21:09:48 ++ Certificate has EKU (str) TLS Web Server Authentication, expects TLS Web Server Authentication
+2023-07-29 21:09:48 VERIFY EKU OK
+2023-07-29 21:09:48 VERIFY X509NAME OK: CN=server_KIgdanQo5P0GCVb8
+2023-07-29 21:09:48 VERIFY OK: depth=0, CN=server_KIgdanQo5P0GCVb8
+2023-07-29 21:09:48 Control Channel: TLSv1.3, cipher TLSv1.3 TLS_AES_256_GCM_SHA384, peer certificate: 256 bit ECprime256v1, signature: ecdsa-with-SHA256
+2023-07-29 21:09:48 [server_KIgdanQo5P0GCVb8] Peer Connection Initiated with [AF_INET]139.162.67.93:1194
+2023-07-29 21:09:48 TLS: move_session: dest=TM_ACTIVE src=TM_INITIAL reinit_src=1
+2023-07-29 21:09:48 TLS: tls_multi_process: initial untrusted session promoted to trusted
+2023-07-29 21:09:48 PUSH: Received control message: 'PUSH_REPLY,dhcp-option DNS 208.67.222.222,dhcp-option DNS 208.67.220.220,redirect-gateway def1 bypass-dhcp,tun-ipv6,route-ipv6 2000::/3,redirect-gateway ipv6,tun-ipv6,route-gateway 10.8.0.1,topology subnet,ping 10,ping-restart 120,ifconfig-ipv6 fd42:42:42:42::2/112 fd42:42:42:42::1,ifconfig 10.8.0.2 255.255.255.0,peer-id 1,cipher AES-128-GCM,protocol-flags cc-exit tls-ekm dyn-tls-crypt,tun-mtu 1500'
+2023-07-29 21:09:48 WARNING: You have specified redirect-gateway and redirect-private at the same time (or the same option multiple times). This is not well supported and may lead to unexpected results
+2023-07-29 21:09:48 OPTIONS IMPORT: --ifconfig/up options modified
+2023-07-29 21:09:48 OPTIONS IMPORT: route options modified
+2023-07-29 21:09:48 OPTIONS IMPORT: route-related options modified
+2023-07-29 21:09:48 OPTIONS IMPORT: --ip-win32 and/or --dhcp-option options modified
+2023-07-29 21:09:48 OPTIONS IMPORT: tun-mtu set to 2023-07-29 21:11:47 [server_KIgdanQo5P0GCVb8] Inactivity timeout (--ping-restart), restarting
+2023-07-29 21:11:47 SIGUSR1[soft,ping-restart] received, process restarting
+2023-07-29 21:11:47 Restart pause, 1 second(s)
+2023-07-29 21:11:48 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:11:48 Socket Buffers:2023-07-29 21:13:42 [server_KIgdanQo5P0GCVb8] Inactivity timeout (--ping-restart), restarting
+2023-07-29 21:13:42 SIGUSR1[soft,ping-restart] received, process restarting
+2023-07-29 21:13:42 Restart pause, 1 second(s)
+2023-07-29 21:13:43 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:13:43 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:13:43 UDPv4 link local: (not bound)
+2023-07-29 21:13:43 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 21:13:43 TLS: Initial packet from [AF_INET]139.162.67.93:1194, sid=0faf4733 f27279c7
+2023-07-29 21:13:43 VERIFY OK: depth=1, CN=cn_TWl6ineGepCIk0qc
+2023-07-29 21:13:43 VERIFY KU OK
+2023-07-29 21:13:43 Validating certificate extended key usage
+2023-07-29 21:13:43 ++ Certificate has EKU (str) TLS Web Server Authentication, expects TLS Web Server Authentication
+2023-07-29 21:13:43 VERIFY EKU OK
+2023-07-29 21:13:43 VERIFY X509NAME OK: CN=server_KIgdanQo5P0GCVb8
+2023-07-29 21:13:43 VERIFY OK: depth=0, CN=server_KIgdanQo5P0GCVb8
+2023-07-29 21:13:43 Control Channel: TLSv1.3, cipher TLSv1.3 TLS_AES_256_GCM_SHA384, peer certificate: 256 bit ECprime256v1, signature: ecdsa-with-SHA256
+2023-07-29 21:13:43 [server_KIgdanQo5P0GCVb8] Peer Connection Initiated with [AF_INET]139.162.67.93:1194
+2023-07-29 21:13:43 TLS: move_session: dest=TM_ACTIVE src=TM_INITIAL reinit_src=1
+2023-07-29 21:13:43 TLS: tls_multi_process: initial untrusted session promoted to trusted
+2023-07-29 21:13:44 SENT CONTROL [server_KIgdanQo5P0GCVb8]: 'PUSH_REQUEST' (status=1)
+2023-07-29 21:13:44 PUSH: Received control message: 'PUSH_REPLY,dhcp-option DNS 208.67.222.222,dhcp-option DNS 208.67.220.220,redirect-gateway def1 bypass-dhcp,tun-ipv6,route-ipv6 2000::/3,redirect-gateway ipv6,tun-ipv6,route-gateway 10.8.0.1,topology subnet,ping 10,ping-restart 120,ifconfig-ipv6 fd42:42:42:42::2/112 fd42:42:42:42::1,ifconfig 10.8.0.2 255.255.255.0,peer-id 1,cipher AES-128-GCM,protocol-flags cc-exit tls-ekm dyn-tls-crypt,tun-mtu 1500'
+2023-07-29 21:13:44 WARNING: You have specified redirect-gateway and redirect-private at the same time (or the same option multiple times). This is not well supported and may lead to unexpected results
+2023-07-29 21:13:44 OPTIONS IMPORT: --ifconfig/up options modified
+2023-07-29 21:13:44 OPTIONS IMPORT: route options modified
+2023-07-29 21:13:44 OPTIONS IMPORT: route-related options modified
+2023-07-29 21:13:44 OPTIONS IMPORT: --ip-win32 and2023-07-29 21:15:38 read UDPv4 [EHOSTUNREACH]: No route to host (fd=3,code=113)
+2023-07-29 21:15:39 [server_KIgdanQo5P0GCVb8] Inactivity timeout (--ping-restart), restarting
+2023-07-29 21:15:39 SIGUSR1[soft,ping-restart] received, process restarting
+2023-07-29 21:15:39 Restart pause, 1 second(s)
+2023-07-29 21:15:40 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:15:40 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:15:40 UDPv4 link local: (not boun2023-07-29 21:17:25 [server_KIgdanQo5P0GCVb8] Inactivity timeout (--ping-restart), restarting
+2023-07-29 21:17:25 SIGUSR1[soft,ping-restart] received, process restarting
+2023-07-29 21:17:25 Restart pause, 1 second(s)
+2023-07-29 21:17:26 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:17:26 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:17:26 UDPv4 link local: (not bound)
+2023-07-29 21:17:26 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 21:17:26 TLS: Initial packet from [AF_INET]139.162.67.93:1194, sid=f67b1dd6 b18108ff
+2023-07-29 21:17:26 VERIFY OK: depth=1, CN=cn_TWl6ineGepCIk0qc
+2023-07-29 21:17:26 VERIFY KU OK
+2023-07-29 21:17:26 Validating certificate extended key usage
+2023-07-29 21:17:26 ++ Certificate has EKU (str) TLS Web Server Authentication, expects TLS Web Server Authentication
+2023-07-29 21:17:26 VERIFY EKU OK
+2023-07-29 21:17:26 VERIFY X509NAME OK: CN=server_KIgdanQo5P0GCVb8
+2023-07-29 21:17:26 VERIFY OK: depth=0, CN=server_KIgdanQo5P0GCVb8
+2023-07-29 21:17:26 Control Channel: TLSv1.3, cipher TLSv1.3 TLS_AES_256_GCM_SHA384, peer certificate: 256 bit ECprime256v1, signature: ecdsa-with-SHA256
+2023-07-29 21:17:26 [server_KIgdanQo5P0GCVb8] Peer Connection Initiated with [AF_INET]139.162.67.93:1194
+2023-07-29 21:17:26 TLS: move_session: dest=TM_ACTIVE src=TM_INITIAL reinit_src=1
+2023-07-29 21:17:26 TLS: tls_multi_process: initial untrusted session promoted to trusted
+2023-07-29 21:17:26 PUSH: Received control message: 'PUSH_REPLY,dhcp-option DNS 208.67.222.222,dhcp-option DNS 208.67.220.220,redirect-gateway def1 bypass-dhcp,tun-ipv6,route-ipv6 2000::/3,redirect-gateway ipv6,tun-ipv6,route-gateway 10.8.0.1,topology subnet,ping 10,ping-restart 120,ifconfig-ipv6 fd42:42:42:42::2/112 fd42:42:42:42::1,ifconfig 10.8.0.2 255.255.255.0,peer-id 1,cipher AES-128-GCM,protocol-flags cc-exit tls-ekm dyn-tls-crypt,tun-mtu 1500'
+2023-07-29 21:17:26 WARNING: You have specified redirect-gateway and redirect-private at the same time (or the same option multiple times). This is not well supported and may lead to unexpected results
+2023-07-29 21:17:26 OPTIONS IMPORT: --ifconfig/up options modified
+2023-07-29 21:17:26 OPTIONS IMPORT: route options modified
+2023-07-29 21:17:26 OPTIONS IMPORT: route-related options modified
+2023-07-29 21:17:26 OPTIONS IMPORT: --ip-win32 and2023-07-29 21:19:22 [server_KIgdanQo5P0GCVb8] Inactivity timeout (--ping-restart), restarting
+2023-07-29 21:19:22 SIGUSR1[soft,ping-restart] received, process restarting
+2023-07-29 21:19:22 Restart pause, 1 second(s)
+2023-07-29 21:19:23 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:19:23 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:19:23 UDPv4 link local: (not boun2023-07-29 21:21:17 [server_KIgdanQo5P0GCVb8] Inactivity timeout (--ping-restart), restarting
+2023-07-29 21:21:17 SIGUSR1[soft,ping-restart] received, process restarting
+2023-07-29 21:21:17 Restart pause, 1 second(s)
+2023-07-29 21:21:18 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:21:18 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:21:18 UDPv4 link local: (not bound)
+2023-07-29 21:21:18 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 21:21:19 TLS: Initial packet from [AF_INET]139.162.67.93:1194, sid=e8c6dae8 b4dc9756
+2023-07-29 21:21:19 VERIFY OK: depth=1, CN=cn_TWl6ineGepCIk0qc
+2023-07-29 21:21:19 VERIFY KU OK
+2023-07-29 21:21:19 Validating certificate extended key usage
+2023-07-29 21:21:19 ++ Certificate has EKU (str) TLS Web Server Authentication, expects TLS Web Server Authentication
+2023-07-29 21:21:19 VERIFY EKU OK
+2023-07-29 21:21:19 VERIFY X509NAME OK: CN=server_KIgdanQo5P0GCVb8
+2023-07-29 21:21:19 VERIFY OK: depth=0, CN=server_KIgdanQo5P0GCVb8
+2023-07-29 21:21:19 Control Channel: TLSv1.3, cipher TLSv1.3 TLS_AES_256_GCM_SHA384, peer certificate: 256 bit ECprime256v1, signature: ecdsa-with-SHA256
+2023-07-29 21:21:19 [server_KIgdanQo5P0GCVb8] Peer Connection Initiated with [AF_INET]139.162.67.93:1194
+2023-07-29 21:21:19 TLS: move_session: dest=TM_ACTIVE src=TM_INITIAL reinit_src=1
+2023-07-29 21:21:19 TLS: tls_multi_process: initial untrusted session promoted to trusted
+2023-07-29 21:21:19 PUSH: Received control message: 'PUSH_REPLY,dhcp-option DNS 208.67.222.222,dhcp-option DNS 208.67.220.220,redirect-gateway def1 bypass-dhcp,tun-ipv6,route-ipv6 2000::/3,redirect-gateway ipv6,tun-ipv6,route-gateway 10.8.0.1,topology subnet,ping 10,ping-restart 120,ifconfig-ipv6 fd42:42:42:42::2/112 fd42:42:42:42::1,ifconfig 10.8.0.2 255.255.255.0,peer-id 1,cipher AES-128-GCM,protocol-flags cc-exit tls-ekm dyn-tls-crypt,tun-mtu 1500'
+2023-07-29 21:21:19 WARNING: You have specified redirect-gateway and redirect-private at the same time (or the same option multiple times). This is not well supported and may lead to unexpected results
+2023-07-29 21:21:19 OPTIONS IMPORT: --ifconfig/up options modified
+2023-07-29 21:21:19 OPTIONS IMPORT: route options modified
+2023-07-29 21:21:19 OPTIONS IMPORT: route-related options modified
+2023-07-29 21:21:19 OPTIONS IMPORT: --ip-win32 and2023-07-29 21:23:18 [server_KIgdanQo5P0GCVb8] Inactivity timeout (--ping-restart), restarting
+2023-07-29 21:23:18 SIGUSR1[soft,ping-restart] received, process restarting
+2023-07-29 21:23:18 Restart pause, 1 second(s)
+2023-07-29 21:23:19 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:23:19 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:23:19 UDPv4 link local: (not boun2023-07-29 21:40:05 [server_KIgdanQo5P0GCVb8] Inactivity timeout (--ping-restart), restarting
+2023-07-29 21:40:05 SIGUSR1[soft,ping-restart] received, process restarting
+2023-07-29 21:40:05 Restart pause, 1 second(s)
+2023-07-29 21:40:06 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:40:06 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:40:06 UDPv4 link local: (not bound)
+2023-07-29 21:40:06 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 21:41:06 TLS Error: TLS key negotiation failed to occur within 60 seconds (check your network connectivity)
+2023-07-29 21:41:06 TLS Error: TLS handshake failed
+2023-07-29 21:41:06 SIGUSR1[soft,tls-error] received, process restarting
+2023-07-29 21:41:06 Restart pause, 1 second(s)
+2023-07-29 21:41:07 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:41:07 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:41:07 UDPv4 link local: (not bound)
+2023-07-29 21:41:07 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 21:42:07 TLS Error: TLS key negotiation failed to occur within 60 seconds (check your network connectivity)
+2023-07-29 21:42:07 TLS Error: TLS handshake failed
+2023-07-29 21:42:07 SIGUSR1[soft,tls-error] received, process restarting
+2023-07-29 21:42:07 Restart pause, 1 second(s)
+2023-07-29 21:42:08 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:42:08 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:42:08 UDPv4 link local: (not bound)
+2023-07-29 21:42:08 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 21:43:08 TLS Error: TLS key negotiation failed to occur within 60 seconds (check your network connectivity)
+2023-07-29 21:43:08 TLS Error: TLS handshake failed
+2023-07-29 21:43:08 SIGUSR1[soft,tls-error] received, process restarting
+2023-07-29 21:43:08 Restart pause, 1 second(s)
+2023-07-29 21:43:09 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:43:09 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:43:09 UDPv4 link local: (not bound)
+2023-07-29 21:43:09 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 21:44:09 TLS Error: TLS key negotiation failed to occur within 60 seconds (check your network connectivity)
+2023-07-29 21:44:09 TLS Error: TLS handshake failed
+2023-07-29 21:44:09 SIGUSR1[soft,tls-error] received, process restarting
+2023-07-29 21:44:09 Restart pause, 1 second(s)
+2023-07-29 21:44:10 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:44:10 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:44:10 UDPv4 link local: (not bound)
+2023-07-29 21:44:10 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 21:45:11 TLS Error: TLS key negotiation failed to occur within 60 seconds (check your network connectivity)
+2023-07-29 21:45:11 TLS Error: TLS handshake failed
+2023-07-29 21:45:11 SIGUSR1[soft,tls-error] received, process restarting
+2023-07-29 21:45:11 Restart pause, 1 second(s)
+2023-07-29 21:45:12 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:45:12 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:45:12 UDPv4 link local: (not bound)
+2023-07-29 21:45:12 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 21:46:12 TLS Error: TLS key negotiation failed to occur within 60 seconds (check your network connectivity)
+2023-07-29 21:46:12 TLS Error: TLS handshake failed
+2023-07-29 21:46:12 SIGUSR1[soft,tls-error] received, process restarting
+2023-07-29 21:46:12 Restart pause, 2 second(s)
+2023-07-29 21:46:14 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:46:14 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:46:14 UDPv4 link local: (not bound)
+2023-07-29 21:46:14 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 21:47:14 TLS Error: TLS key negotiation failed to occur within 60 seconds (check your network connectivity)
+2023-07-29 21:47:14 TLS Error: TLS handshake failed
+2023-07-29 21:47:14 SIGUSR1[soft,tls-error] received, process restarting
+2023-07-29 21:47:14 Restart pause, 4 second(s)
+2023-07-29 21:47:18 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:47:18 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:47:18 UDPv4 link local: (not bound)
+2023-07-29 21:47:18 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 21:48:19 TLS Error: TLS key negotiation failed to occur within 60 seconds (check your network connectivity)
+2023-07-29 21:48:19 TLS Error: TLS handshake failed
+2023-07-29 21:48:19 SIGUSR1[soft,tls-error] received, process restarting
+2023-07-29 21:48:19 Restart pause, 8 second(s)
+2023-07-29 21:48:27 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:48:27 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:48:27 UDPv4 link local: (not bound)
+2023-07-29 21:48:27 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+9 21:44:06 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 21:45:06 TLS Error: TLS key negotiation failed to occur within 60 seconds (check your network connectivity)
+2023-07-29 21:45:06 TLS Error: TLS handshake failed
+2023-07-29 21:45:06 SIGUSR1[soft,tls-error] received, process restarting
+2023-07-29 21:45:06 Restart pause, 1 second(s)
+2023-07-29 21:45:07 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:45:07 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:45:07 UDPv4 link local: (not bound)
+2023-07-29 21:45:07 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 21:46:07 TLS Error: TLS key negotiation failed to occur within 60 seconds (check your network connectivity)
+2023-07-29 21:46:07 TLS Error: TLS handshake failed
+2023-07-29 21:46:07 SIGUSR1[soft,tls-error] received, process restarting
+2023-07-29 21:46:07 Restart pause, 2 second(s)
+2023-07-29 21:46:09 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:46:09 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:46:09 UDPv4 link local: (not bound)
+2023-07-29 21:46:09 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 21:47:09 TLS Error: TLS key negotiation failed to occur within 60 seconds (check your network connectivity)
+2023-07-29 21:47:09 TLS Error: TLS handshake failed
+2023-07-29 21:47:09 SIGUSR1[soft,tls-error] received, process restarting
+2023-07-29 21:47:09 Restart pause, 4 second(s)
+2023-07-29 21:47:13 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:47:13 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:47:13 UDPv4 link local: (not bound)
+2023-07-29 21:47:13 UDPv4 link remote: [AF_INET]139.162.67.93:1194
+2023-07-29 21:48:13 TLS Error: TLS key negotiation failed to occur within 60 seconds (check your network connectivity)
+2023-07-29 21:48:13 TLS Error: TLS handshake failed
+2023-07-29 21:48:13 SIGUSR1[soft,tls-error] received, process restarting
+2023-07-29 21:48:13 Restart pause, 8 second(s)
+2023-07-29 21:48:21 TCP/UDP: Preserving recently used remote address: [AF_INET]139.162.67.93:1194
+2023-07-29 21:48:21 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2023-07-29 21:48:21 UDPv4 link local: (not bound)
+2023-07-29 21:48:21 UDPv4 link remote: [AF_INET]139.162.67.93:1194
