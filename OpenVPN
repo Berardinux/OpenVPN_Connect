@@ -72,9 +72,9 @@ class UiLayout(Gtk.Window):
     
     def create_switches(self, switch_box):
         switch_configs = [
-##############///\\\ -{"START"}- ///\\\##############
+############## ///\\\ -{"START"}- ///\\\ ##############
 
-##############///\\\ --{"END"}-- ///\\\##############
+############## ///\\\ --{"END"}-- ///\\\ ##############
         ]
 
         for config in switch_configs:
