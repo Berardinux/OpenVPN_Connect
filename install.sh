@@ -62,7 +62,6 @@ fi
 
 sudo mkdir -p /opt/OpenVPN
 sudo cp -r * /opt/OpenVPN
-sudo touch /opt/OpenVPN/ovpn_app.conf
 touch "/home/$current_user/.local/share/applications/OpenVPN.desktop"
 sudo chmod -R 777 /opt/OpenVPN/
 chmod 777 "/home/$current_user/.local/share/applications/OpenVPN.desktop"
