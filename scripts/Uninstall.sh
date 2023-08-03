@@ -13,7 +13,6 @@ elif [ "$ovpnconnect" == "uninstall" ]; then
 	exit 0
 fi
 
-echo "Would you like to uninstall OpenVPN? (Y/n)"
 read -r uninstall
 
 if [ -z "$uninstall" ] || [ "$uninstall" = "Y" ]; then
