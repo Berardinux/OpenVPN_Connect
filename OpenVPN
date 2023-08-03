@@ -61,6 +61,7 @@ class UiLayout(Gtk.Window):
 
         # Create the main box to hold the switches
         switch_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=20)
+        #switch_box.set_size_request(400, -1)
         self.switches = []
         self.command_switch_1_on = self.run_command_switch_on
         self.command_switch_1_off = self.run_command_switch_off
@@ -83,7 +84,7 @@ class UiLayout(Gtk.Window):
             self.switches.append(switch_with_label_button.get_children()[0])
             switch_with_label_button.get_children()[0].connect("notify::active", self.on_switch_clicked, config)
 
-# Command functions for Switch 1
+# Start of Switch v
     def run_command_switch_on(self, switch_config):
         try:
             command_on = switch_config["command_switch_on"]
@@ -117,8 +118,9 @@ class UiLayout(Gtk.Window):
                 print(f"Error turning {config['label']} OFF.")
 
     def create_switch_with_label_button(self, label_text, trash_button_config):
-        switch_with_label_button = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        switch_with_label_button = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=40)
         switch = Gtk.Switch()
+        switch.set_size_request(80, -1)
         image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_trash.png")
         label = Gtk.Label(label=label_text)
         label.get_style_context().add_class("VPN-label")
@@ -135,13 +137,9 @@ class UiLayout(Gtk.Window):
         switch_with_label_button.pack_start(image_and_label_box, False, False, 0)
 
         return switch_with_label_button
+# End of Switch ^
 
-    def restart_application(self):
-        self.destroy()
-        python_executable = sys.executable
-        script_path = os.path.abspath(__file__)
-        os.execl(python_executable, python_executable, script_path)
-
+# .OVPN Trash Buttons
     def on_trash_button_clicked(self, button, trash_button_config):
         try:
             result = subprocess.run(trash_button_config, capture_output=True, text=True)
@@ -176,8 +174,14 @@ class UiLayout(Gtk.Window):
         except subprocess.CalledProcessError as e:
             print("Error executing the command:", e)
 
-##############################################################################
+# App Restart
+    def restart_application(self):
+        self.destroy()
+        python_executable = sys.executable
+        script_path = os.path.abspath(__file__)
+        os.execl(python_executable, python_executable, script_path)
 
+# Error Dialog
     def show_error_dialog(self, message):
         dialog = Gtk.MessageDialog(
             parent=self,
