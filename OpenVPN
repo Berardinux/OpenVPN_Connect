@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-##### --{"0"}-- #####
+##### --{"2"}-- #####
 
 import gi
 gi.require_version('Gtk', '3.0')
@@ -73,6 +73,24 @@ class UiLayout(Gtk.Window):
     def create_switches(self, switch_box):
         switch_configs = [
 ############## ///\\\ -{"START"}- ///\\\ ##############
+# Switch {"JP-OVPN"}
+            {
+                "label": "JP-OVPN vpn",
+                "command_on": self.run_command_switch_on,
+                "command_off": self.run_command_switch_off,
+                "command_switch_on": ["pkexec", "bash", "/opt/OpenVPN/scripts/on.sh", "JP-OVPN"],
+                "command_switch_off": ["pkexec", "killall", "openvpn"],
+                "command_trash_button": ["pkexec", "bash", "/opt/OpenVPN/scripts/rm.sh", "JP-OVPN"],
+            },
+# Switch {"Berardinux"}
+            {
+                "label": "Berardinux vpn",
+                "command_on": self.run_command_switch_on,
+                "command_off": self.run_command_switch_off,
+                "command_switch_on": ["pkexec", "bash", "/opt/OpenVPN/scripts/on.sh", "Berardinux"],
+                "command_switch_off": ["pkexec", "killall", "openvpn"],
+                "command_trash_button": ["pkexec", "bash", "/opt/OpenVPN/scripts/rm.sh", "Berardinux"],
+            },
 
 ############## ///\\\ --{"END"}-- ///\\\ ##############
         ]
@@ -121,6 +139,7 @@ class UiLayout(Gtk.Window):
         switch = Gtk.Switch()
         image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/ovpn_trash.png")
         label = Gtk.Label(label=label_text)
+        label.get_style_context().add_class("VPN-label")
         trash_button = Gtk.Button()
         trash_button.set_image(image)
         trash_button.connect("clicked", self.on_trash_button_clicked, trash_button_config)
@@ -251,6 +270,7 @@ class UiLayout(Gtk.Window):
         logs_label.set_text(logs_output)
         logs_label.set_line_wrap(True)
         logs_label.set_width_chars(50)
+        logs_label.get_style_context().add_class("logs-label")
         
         logs_label_x = 100
         logs_label_y = 100
