@@ -168,6 +168,14 @@ class UiLayout(Gtk.Window):
         except subprocess.CalledProcessError as e:
             print("Error executing the command:", e)
 
+# Settings Uninstall
+    def on_uninstall_button_clicked(self, button):
+        try:
+            subprocess.run(['pkexec', 'bash', '/opt/OpenVPN/scripts/Uninstall.sh', 'uninstall'], check=True)
+            sys.exit()
+        except subprocess.CalledProcessError as e:
+            print("Error executing the command:", e)
+
 ##############################################################################
 
     def show_error_dialog(self, message):
@@ -215,20 +223,21 @@ class UiLayout(Gtk.Window):
         back_button.set_halign(Gtk.Align.START)
         back_button.connect("clicked", self.on_settings_back_to_main_clicked, settings_window)
 
-        color_label_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=20)
+        color_label_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
         color_label_box.set_valign(Gtk.Align.CENTER)
         color_label_box.set_halign(Gtk.Align.CENTER)
-        color_label_box.set_margin_bottom(200)
+        color_label_box.set_margin_bottom(400)
         overlay.add_overlay(color_label_box)
 
         color_label = Gtk.Label()
         color_label.set_text("Theme")
         color_label.get_style_context().add_class("VPN-label")
-        color_label.set_margin_start(20)
+        color_label.set_margin_start(0)
 
         color_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=20)
         color_button_box.set_valign(Gtk.Align.CENTER)
         color_button_box.set_halign(Gtk.Align.CENTER)
+        color_button_box.set_margin_bottom(200)
         overlay.add_overlay(color_button_box)
 
         light_button_image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/light_button.png")
@@ -243,10 +252,36 @@ class UiLayout(Gtk.Window):
         dark_button.set_margin_end(30)
         dark_button.connect("clicked", self.on_dark_button_clicked)
 
+#####
+        uninstall_label_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        uninstall_label_box.set_valign(Gtk.Align.CENTER)
+        uninstall_label_box.set_halign(Gtk.Align.CENTER)
+        uninstall_label_box.set_margin_top(100)
+        overlay.add_overlay(uninstall_label_box)
+
+        uninstall_label = Gtk.Label()
+        uninstall_label.set_text("Uninstall OpenVPN Connect")
+        uninstall_label.get_style_context().add_class("VPN-label")
+        uninstall_label.set_margin_start(0)
+
+        uninstall_button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=20)
+        uninstall_button_box.set_valign(Gtk.Align.CENTER)
+        uninstall_button_box.set_halign(Gtk.Align.CENTER)
+        uninstall_button_box.set_margin_top(300)
+        overlay.add_overlay(uninstall_button_box)
+
+        uninstall_button_image = Gtk.Image.new_from_file("/opt/OpenVPN/Images/uninstall.png")
+        uninstall_button = Gtk.Button()
+        uninstall_button.add(uninstall_button_image)
+        uninstall_button.set_margin_end(0)
+
         color_button_box.pack_start(light_button, False, False, 0)
         color_button_box.pack_start(dark_button, False, False, 0)  
         color_label_box.pack_start(color_label, False, False, 0)
         color_label_box.pack_start(color_button_box, False, False, 0)
+        uninstall_label_box.pack_start(uninstall_label, False, False, 0)
+        uninstall_button_box.pack_start(uninstall_button, False, False, 0)
+        uninstall_button.connect("clicked", self.on_uninstall_button_clicked)
 
         settings_window.connect("destroy", Gtk.main_quit)
         settings_window.show_all()

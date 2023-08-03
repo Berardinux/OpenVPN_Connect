@@ -1,10 +1,10 @@
 .VPN-label {
-    color: white;
+    color: black;
     background-color: rgba(0, 0, 0, 0);
     font-size: 20px;
 }
 .logs-label {
-    color: white;
+    color: black;
     background-color: rgba(0, 0, 0, 0); /* Fully transparent background */
     font-size: 14px;
 }

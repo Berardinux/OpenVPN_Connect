@@ -3,6 +3,16 @@
 distro=$(grep -w "NAME" /etc/os-release | cut -d= -f2 | tr -d '"' | cut -d' ' -f1)
 desktop=$(find / -name "OpenVPN.desktop" 2>/dev/null)
 
+ovpnconnect=$1
+
+if [ -z "$ovpnconnect" ]; then
+	echo "Would you like to uninstall OpenVPN? (Y/n)"
+elif [ "$ovpnconnect" == "uninstall" ]; then
+	sudo rm $desktop
+	sudo rm -r /opt/OpenVPN
+	exit 0
+fi
+
 echo "Would you like to uninstall OpenVPN? (Y/n)"
 read -r uninstall
 
