@@ -16,7 +16,7 @@ fi
 read -r uninstall
 
 if [ -z "$uninstall" ] || [ "$uninstall" = "Y" ]; then
-	if [ "$distro" = "Debian" ] || [ "$distro" = "Ubuntu" ] || [ "$distro" = "PopOS"]; then
+	if [ "$distro" = "Debian" ] || [ "$distro" = "Ubuntu" ] || [ "$distro" = "Pop!_OS"]; then
     	sudo apt purge openvpn
 	elif [ "$distro" = "Arch" ]; then
 		sudo pacman -Rns openvpn
