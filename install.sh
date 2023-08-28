@@ -10,7 +10,7 @@ else
 	current_user=$SUDO_USER
 fi	
 
-if [ "$distro" = "Debian" ] || [ "$distro" = "Ubuntu" ]; then
+if [ "$distro" = "Debian" ] || [ "$distro" = "Ubuntu" ] || [ "$distro" = "PopOS" ]; then
     if dpkg -l | grep -q "openvpn"; then
         echo "openvpn is aready installed on your system already"
         sudo chmod 777 scripts/Uninstall.sh
@@ -30,7 +30,7 @@ elif [ "$distro" = "Arch" ]; then
     fi
 else
     echo "Your Distro can not be installed using this install script sorry!"
-    echo "Distros that can be installed include (Debian / Ubuntu / Arch)"
+    echo "Distros that can be installed include (Debian / Ubuntu / PopOS / Arch)"
     exit 1
 fi
 
@@ -47,7 +47,7 @@ clear
 if [ -z $install ]; then
     install=Y
     if [ "$install" = "Y" ]; then
-        if [ "$distro" = "Debian" ] || [ "$distro" = "Ubuntu" ]; then
+        if [ "$distro" = "Debian" ] || [ "$distro" = "Ubuntu" ] || [ "$distro" = "PopOS"]; then
             sudo apt update && sudo apt upgrade -y && sudo apt install openvpn -y
         elif [ "$distro" = "Arch" ]; then
             sudo pacman -Syu && sudo pacman -S --noconfirm openvpn
