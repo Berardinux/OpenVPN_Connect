@@ -47,7 +47,7 @@ clear
 if [ -z $install ]; then
     install=Y
     if [ "$install" = "Y" ]; then
-        if [ "$distro" = "Debian" ] || [ "$distro" = "Ubuntu" ] || [ "$distro" = "Pop!_OS"]; then
+        if [ "$distro" = "Debian" ] || [ "$distro" = "Ubuntu" ] || [ "$distro" = "Pop!_OS" ]; then
             sudo apt update && sudo apt upgrade -y && sudo apt install openvpn -y
         elif [ "$distro" = "Arch" ]; then
             sudo pacman -Syu && sudo pacman -S --noconfirm openvpn
