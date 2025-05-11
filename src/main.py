@@ -1,2 +1,8 @@
-#!/usr/bin/env python3
+from main_gui import MainGUI
+
+MainGUI().ProfilesWindow()
+
+
+print("Hello world")
+
 
