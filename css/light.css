@@ -1,0 +1,15 @@
+window {
+    background-color: #f2f2f2;
+    color: #000;
+
+}
+
+#custom-header {
+    background-color: #1b3c74;
+}
+
+#custom-header label {
+    color: white;
+    font-size: 40;
+    font-weight: bold;
+}

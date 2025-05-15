@@ -1,4 +1,6 @@
+import os
 import gi
+import sys
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gdk
 
@@ -17,4 +19,26 @@ class Error:
         dialog.destroy()
         Gtk.main.quit()
 
+class ErrorCheck:
+    def error_check_for_loading_css(self, css_provider, css_path):
+        if not os.path.exists(css_path):
+            Error().show_error_dialog(f"CSS file not found:\n{css_path}")
+            sys.exit(1)
+    
+        try:
+            css_provider.load_from_path(css_path)
+            screen = Gdk.Screen.get_default()
+            Gtk.StyleContext.add_provider_for_screen(
+                    screen,
+                    css_provider,
+                    Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+                    )
+    
+        except Exception as e:
+            Error().show_error_dialog(f"Failed to load CSS:\n{e}")
+            sys.exit(1)
 
+    def error_check_for_loading_config(self, config_path):
+        if not os.path.exists(config_path):
+            Error().show_error_dialog(f"Config file not found:\n{config_path}")
+            sys.exit(1)
