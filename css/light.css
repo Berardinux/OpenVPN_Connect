@@ -5,11 +5,20 @@ window {
 }
 
 #custom-header {
-    background-color: #1b3c74;
+    background-color: #293864;
 }
 
 #custom-header label {
     color: white;
-    font-size: 40;
+    font-size: 20;
     font-weight: bold;
+}
+
+.hamburger-btn {
+    min-width: 60px;
+    min-height: 40px;
+}
+
+.hamburger-btn image {
+    color: white;
 }
