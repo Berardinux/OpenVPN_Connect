@@ -14,9 +14,7 @@ class MainGUI:
         LoadCSS().load_theme_css()
 
         ui = UIComponents()
-        ui.create_header_box()
-        ui.create_hamburger(callback=my_click_function)
-        ui.create_header_label("Profiles")
+        ui.create_profiles_header_box(callback=my_click_function)
         ui.create_window()
         ui.win.show_all()
 
