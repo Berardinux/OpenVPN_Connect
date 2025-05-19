@@ -17,7 +17,7 @@ class Error:
         dialog.format_secondary_text(message)
         dialog.run()
         dialog.destroy()
-        Gtk.main.quit()
+        Gtk.main_quit()
 
 class ErrorCheck:
     def error_check_for_loading_css(self, css_provider, css_path):

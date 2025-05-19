@@ -14,7 +14,7 @@ window {
     font-weight: bold;
 }
 
-.hamburger-btn {
+.hamburger-btn, .list-btn {
     min-width: 60px;
     min-height: 40px;
 }
@@ -22,3 +22,8 @@ window {
 .hamburger-btn image {
     color: white;
 }
+
+.import_profile_btn {
+    min-width: 100px;
+}
+
