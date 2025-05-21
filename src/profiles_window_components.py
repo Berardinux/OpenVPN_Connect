@@ -90,8 +90,15 @@ class ProfilesWindowUIComponents:
         sidebar.set_name("sidebar")
         sidebar.get_style_context().add_class("sidebar")
 
+        # Spacer
+        spacer = Gtk.Box()
+        spacer.set_size_request(-1, 40)
+        sidebar.pack_start(spacer, False, False, 0)
+
         for label in ["Import Profile", "Proxies", "Settings"]:
             button = Gtk.Button(label=label)
+            button.set_margin_left(20)
+            button.set_margin_right(20)
             sidebar.pack_start(button, False, False, 0)
 
         self.revealer.add(sidebar)
