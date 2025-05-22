@@ -80,13 +80,19 @@ class ProfilesWindowUIComponents:
 
         return self.footer_box
 
-    def create_sidebar(self):
+    def _on_click_outside(self, widget, event):
+        self.toggle_sidebar(None)
+        return True
+
+    def create_sidebar(self, overlay, settings_callback=None):
+        self.settings_callback = settings_callback
+
         self.revealer = Gtk.Revealer()
         self.revealer.set_transition_type(Gtk.RevealerTransitionType.SLIDE_RIGHT)
         self.revealer.set_transition_duration(300)
 
         sidebar = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        sidebar.set_size_request(200, -1)
+        sidebar.set_size_request(250, -1)
         sidebar.set_name("sidebar")
         sidebar.get_style_context().add_class("sidebar")
 
@@ -95,17 +101,49 @@ class ProfilesWindowUIComponents:
         spacer.set_size_request(-1, 40)
         sidebar.pack_start(spacer, False, False, 0)
 
-        for label in ["Import Profile", "Proxies", "Settings"]:
+        buttons = {
+                "Import Profile": lambda btn: print("Import clicked"),
+                "Proxies": lambda btn: print("Proxies clicked"),
+                "Settings": lambda btn: (self.toggle_sidebar(btn), self.settings_callback(btn))
+                }
+
+        for label, handler in buttons.items():
             button = Gtk.Button(label=label)
             button.set_margin_left(20)
             button.set_margin_right(20)
+            button.connect("clicked", handler)
             sidebar.pack_start(button, False, False, 0)
 
         self.revealer.add(sidebar)
         self.revealer.set_reveal_child(False)
-        self.body_box.pack_start(self.revealer, False, False, 0)
-        return self.revealer
+        self.revealer.set_halign(Gtk.Align.START)
+        self.revealer.set_valign(Gtk.Align.FILL)
+        overlay.add_overlay(self.revealer)
+
+        self.click_catcher = Gtk.EventBox()
+        self.click_catcher.set_visible_window(False)
+        self.click_catcher.set_above_child(True)
+        self.click_catcher.connect("button-press-event", self._on_click_outside)
+
+        click_area = Gtk.Box()
+        click_area.set_size_request(1, 1)
+        self.click_catcher.add(click_area)
+        
+        self.click_catcher.set_margin_left(250)
+        self.click_catcher.set_hexpand(True)
+        self.click_catcher.set_vexpand(True)
+        self.click_catcher.set_valign(Gtk.Align.FILL)
+        self.click_catcher.set_halign(Gtk.Align.FILL)
+        overlay.add_overlay(self.click_catcher)
+        self.click_catcher.hide()
 
     def toggle_sidebar(self, button):
         current = self.revealer.get_reveal_child()
         self.revealer.set_reveal_child(not current)
+
+        if self.click_catcher:
+            if not current:
+                self.click_catcher.show()
+            else:
+                self.click_catcher.hide()
+

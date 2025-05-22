@@ -14,7 +14,7 @@ window {
     font-weight: bold;
 }
 
-.hamburger-btn, .list-btn {
+.hamburger-btn, .list-btn, .back-btn {
     min-width: 60px;
     min-height: 40px;
 }
@@ -33,5 +33,4 @@ window {
     border-top-right-radius: 0px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius:16px;
-    margin-bottom: 200px;
 }
