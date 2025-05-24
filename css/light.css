@@ -23,7 +23,7 @@ window {
     color: white;
 }
 
-.import_profile_btn {
+.import_profile_btn, .add_proxy_btn {
     min-width: 100px;
 }
 

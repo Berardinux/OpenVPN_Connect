@@ -83,10 +83,16 @@ class ProfilesWindowUIComponents:
     def create_sidebar(
             self, overlay,
             import_profile_callback=None,
-            settings_callback=None
+            proxies_callback=None,
+            cert_and_tok_callback = None,
+            settings_callback=None,
+            statistics_callback=None
             ):
         self.import_profile_callback = import_profile_callback
+        self.proxies_callback = proxies_callback
+        self.cert_and_tok_callback = cert_and_tok_callback
         self.settings_callback = settings_callback
+        self.statistics_callback = statistics_callback
 
         self.revealer = Gtk.Revealer()
         self.revealer.set_transition_type(Gtk.RevealerTransitionType.SLIDE_RIGHT)
@@ -104,10 +110,10 @@ class ProfilesWindowUIComponents:
 
         buttons = {
                 "Import Profile": lambda btn: (self.close_sidebar(), self.import_profile_callback(btn)),
-                "Proxies": lambda btn: print("Proxies clicked"),
-                "Certificates & Tokens": lambda btn: print("Cert and Tok"),
+                "Proxies": lambda btn: (self.close_sidebar(), self.proxies_callback(btn)),
+                "Certificates & Tokens": lambda btn: (self.close_sidebar(), self.cert_and_tok_callback(btn)),
                 "Settings": lambda btn: (self.close_sidebar(), self.settings_callback(btn)),
-                "Statistics": lambda btn: print("Stat")
+                "Statistics": lambda btn: (self.close_sidebar(), self.statistics_callback(btn))
                 }
 
         for label, handler in buttons.items():
