@@ -80,11 +80,12 @@ class ProfilesWindowUIComponents:
 
         return self.footer_box
 
-    def _on_click_outside(self, widget, event):
-        self.toggle_sidebar(None)
-        return True
-
-    def create_sidebar(self, overlay, settings_callback=None):
+    def create_sidebar(
+            self, overlay,
+            import_profile_callback=None,
+            settings_callback=None
+            ):
+        self.import_profile_callback = import_profile_callback
         self.settings_callback = settings_callback
 
         self.revealer = Gtk.Revealer()
@@ -102,9 +103,11 @@ class ProfilesWindowUIComponents:
         sidebar.pack_start(spacer, False, False, 0)
 
         buttons = {
-                "Import Profile": lambda btn: print("Import clicked"),
+                "Import Profile": lambda btn: (self.close_sidebar(), self.import_profile_callback(btn)),
                 "Proxies": lambda btn: print("Proxies clicked"),
-                "Settings": lambda btn: (self.toggle_sidebar(btn), self.settings_callback(btn))
+                "Certificates & Tokens": lambda btn: print("Cert and Tok"),
+                "Settings": lambda btn: (self.close_sidebar(), self.settings_callback(btn)),
+                "Statistics": lambda btn: print("Stat")
                 }
 
         for label, handler in buttons.items():
@@ -137,13 +140,16 @@ class ProfilesWindowUIComponents:
         overlay.add_overlay(self.click_catcher)
         self.click_catcher.hide()
 
-    def toggle_sidebar(self, button):
-        current = self.revealer.get_reveal_child()
-        self.revealer.set_reveal_child(not current)
-
+    def open_sidebar(self, button=None):
+        self.revealer.set_reveal_child(True)
         if self.click_catcher:
-            if not current:
-                self.click_catcher.show()
-            else:
-                self.click_catcher.hide()
+            self.click_catcher.show()
 
+    def close_sidebar(self):
+        self.revealer.set_reveal_child(False)
+        if self.click_catcher:
+            self.click_catcher.hide()
+
+    def _on_click_outside(self, widget, event):
+        self.close_sidebar()
+        return True

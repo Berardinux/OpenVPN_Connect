@@ -17,8 +17,8 @@ class WindowUIComponents:
         self.win.connect("destroy", Gtk.main_quit)
 
         self.stack = Gtk.Stack()
-        self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
-        self.stack.set_transition_duration(300)
+        self.stack.set_transition_type(Gtk.StackTransitionType.NONE)
+        self.stack.set_transition_duration(0)
 
 
         self.overlay = Gtk.Overlay()
