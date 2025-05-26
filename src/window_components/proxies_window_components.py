@@ -46,8 +46,26 @@ class ProxiesWindowUIComponents:
         return self.header_box
 
     def create_proxies_body_box(self):
-        self.body_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        self.body_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         self.body_box.set_name("custom-body")
+        
+        # You have no proxies added yet body box
+        self.body_box.set_valign(Gtk.Align.CENTER)
+        self.body_box.set_halign(Gtk.Align.CENTER)
+        path = "../images/" + self.theme + "/ovpn_proxies.png"
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
+                path, 200, 200,
+                preserve_aspect_ratio=True
+                )
+        image = Gtk.Image.new_from_pixbuf(pixbuf)
+        label = Gtk.Label(label="You have no proxies added yet")
+        label.set_margin_top(30)
+        label.set_justify(Gtk.Justification.CENTER)
+        label.get_style_context().add_class("label")
+        self.body_box.pack_start(image, False, False, 0)
+        self.body_box.pack_start(label, False, False, 0)
+
+
         return self.body_box
 
     def create_proxies_footer_box(self, callback):

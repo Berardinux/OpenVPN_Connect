@@ -1,7 +1,8 @@
-window {
+#main-frame {
     background-color: #f2f2f2;
     color: #000;
-
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
 }
 
 #custom-header {
@@ -10,7 +11,7 @@ window {
 
 #custom-header label {
     color: white;
-    font-size: 20;
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -33,4 +34,19 @@ window {
     border-top-right-radius: 0px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius:16px;
+}
+
+.label {
+    font-size: 20px;
+}
+
+.add-cert-btn {
+    background-image:none;
+    background-color: #d4792d;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 10px 20px;
+    min-width: 400px;
+    box-shadow: none;
 }

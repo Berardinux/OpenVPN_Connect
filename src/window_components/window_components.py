@@ -1,3 +1,4 @@
+import cairo
 import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gdk
@@ -30,12 +31,32 @@ class WindowUIComponents:
         self.stack.set_transition_type(Gtk.StackTransitionType.NONE)
         self.stack.set_transition_duration(0)
 
+        screen = Gdk.Screen.get_default()
+        visual = screen.get_rgba_visual()
+        if visual and screen.is_composited():
+            self.win.set_visual(visual)
+
+        self.win.set_app_paintable(True)
+        self.win.connect("draw", self.on_draw_background)
+
+        frame = Gtk.Frame()
+        frame.set_shadow_type(Gtk.ShadowType.NONE)
+        frame.set_name("main-frame")
+        frame.add(self.stack)
+
 
         self.overlay = Gtk.Overlay()
-        self.overlay.add(self.stack)
+        self.overlay.add(frame)
 
         self.win.add(self.overlay)
         return self.overlay, self.stack
+        
+    def on_draw_background(self, widget, cr):
+        cr.set_source_rgba(0, 0, 0, 0)
+        cr.set_operator(cairo.OPERATOR_SOURCE)
+        cr.paint()
+        cr.set_operator(cairo.OPERATOR_OVER)
+        return False
 
 class InitWindows:
     def __init__(self, callback):

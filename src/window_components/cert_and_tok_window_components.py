@@ -46,8 +46,106 @@ class CertAndTokWindowUIComponents:
         return self.header_box
 
     def create_cert_and_tok_body_box(self):
-        self.body_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        self.body_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         self.body_box.set_name("custom-body")
+
+        self.stack = Gtk.Stack()
+        self.stack.set_transition_type(Gtk.StackTransitionType.NONE)
+        self.stack.set_vexpand(True)
+        self.stack.set_hexpand(True)
+
+        cert_view = self.create_cert_stack()
+        token_view = self.create_token_stack()
+        
+        self.stack.add_named(cert_view, "pkcs")
+        self.stack.add_named(token_view, "hardware")
+
+        self.tab_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=20)
+        self.tab_box.set_halign(Gtk.Align.CENTER)
+        self.tab_box.set_margin_top(10)
+
+        pkcs_btn = Gtk.Button(label="PKCS #12")
+        pkcs_btn.set_size_request(200, -1)
+        hw_btn = Gtk.Button(label="HARDWARE TOKENS")
+        hw_btn.set_size_request(200, -1)
+
+        pkcs_btn.connect("clicked", lambda btn: self.stack.set_visible_child_name("pkcs"))
+        hw_btn.connect("clicked", lambda btn: self.stack.set_visible_child_name("hardware"))
+
+        self.tab_box.pack_start(pkcs_btn, False, False, 0)
+        self.tab_box.pack_start(hw_btn, False, False, 0)
+
+        self.body_box.pack_start(self.tab_box, False, False, 10)
+        self.body_box.pack_start(self.stack, True, True, 10)
+
         return self.body_box
 
+    def create_cert_stack(self):
+        outer_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+
+        inner_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        inner_box.set_valign(Gtk.Align.CENTER)
+        inner_box.set_halign(Gtk.Align.CENTER)
+
+        path = "../images/" + self.theme + "/ovpn_ext_cert.png"
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
+                path, 200, 200,
+                preserve_aspect_ratio=True
+                )
+        image = Gtk.Image.new_from_pixbuf(pixbuf)
+
+        label = Gtk.Label(label="No external certificates imported")
+        label.set_margin_top(30)
+        label.set_justify(Gtk.Justification.CENTER)
+        label.get_style_context().add_class("label")
+
+        inner_box.pack_start(image, False, False, 0)
+        inner_box.pack_start(label, False, False, 0)
+
+        # Footer button
+        footer_box = Gtk.Box()
+        footer_box.set_size_request(-1, 40)
+        footer_box.set_valign(Gtk.Align.END)
+        footer_box.set_halign(Gtk.Align.CENTER)
+
+        button = Gtk.Button(label="ADD CERTIFICATE")
+        button.get_style_context().add_class("add-cert-btn")
+        button.set_margin_bottom(20)
+        footer_box.pack_start(button, False, False, 0)
+
+        outer_box.pack_start(inner_box, True, True, 0)
+        outer_box.pack_start(footer_box, False, False, 0)
+
+        return outer_box
+
+    def create_token_stack(self):
+        outer_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+
+        inner_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        inner_box.set_valign(Gtk.Align.CENTER)
+        inner_box.set_halign(Gtk.Align.CENTER)
+
+        path = "../images/" + self.theme + "/ovpn_tokens.png"
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
+                path, 200, 200,
+                preserve_aspect_ratio=True
+                )
+        image = Gtk.Image.new_from_pixbuf(pixbuf)
+
+        label = Gtk.Label(label="No hardware tokens detected")
+        label.set_margin_top(30)
+        label.set_justify(Gtk.Justification.CENTER)
+        label.get_style_context().add_class("label")
+
+        footer_box = Gtk.Box()
+        footer_box.set_size_request(-1, 40)
+        footer_box.set_valign(Gtk.Align.END)
+        footer_box.set_halign(Gtk.Align.CENTER)
+
+        inner_box.pack_start(image, False, False, 0)
+        inner_box.pack_start(label, False, False, 0)
+        outer_box.pack_start(inner_box, True, True, 0)
+        outer_box.pack_start(footer_box, False, False, 0)
+
+        return outer_box
 
