@@ -10,6 +10,7 @@ class SettingsWindowUIComponents:
         self.header_box = None
         self.header_label = None
         self.body_box = None
+        self.theme_buttons = []
         self.config=ReadWriteJSON().read_config()
         self.theme = self.config.get("theme", "light")
 
@@ -46,8 +47,62 @@ class SettingsWindowUIComponents:
         return self.header_box
 
     def create_settings_body_box(self):
-        self.body_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        self.body_box.set_name("custom-body")
+        scroll = Gtk.ScrolledWindow()
+        scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        scroll.set_hexpand(True)
+        scroll.set_vexpand(False)
+        scroll.set_name("custom-body-scroll")
+
+        container = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=20)
+        container.set_margin_top(20)
+        container.set_margin_bottom(20)
+        container.set_margin_left(20)
+        container.set_margin_right(20)
+
+        # Theme section {
+        theme_title = Gtk.Label()
+        theme_title.set_markup("<b>Theme</b>")
+        theme_title.get_style_context().add_class("settings_title")
+        theme_title.set_halign(Gtk.Align.START)
+        
+        theme_desc = Gtk.Label(label="Choose application color theme")
+        theme_desc.set_halign(Gtk.Align.START)
+        theme_desc.set_valign(Gtk.Align.START)
+        theme_desc.set_line_wrap(True)
+
+        theme_button_box = Gtk.Box(spacing=10)
+        theme_button_box.set_halign(Gtk.Align.START)
+
+        themes = [("Light", "light"), ("Dark", "dark")]
+
+        for label_text, theme_value in themes:
+            btn = Gtk.Button(label=label_text.upper())
+            btn.set_name("settings-toggle-btn")
+            btn.connect("clicked", self.on_theme_clicked, theme_value)
+            if theme_value == self.theme:
+                btn.get_style_context().add_class("theme-selected")
+            self.theme_buttons.append(btn)
+            theme_button_box.pack_start(btn, False, False, 0)
+
+        container.pack_start(theme_title, False, False, 0)
+        container.pack_start(theme_desc, False, False, 0)
+        container.pack_start(theme_button_box, False, False, 0)
+        # }
+
+
+        scroll.add(container)
+        self.body_box = scroll
+        #self.body_box.set_name("custom-body")
         return self.body_box
+
+    def on_theme_clicked(self, button, theme_value):
+        print(f"Theme selected: {theme_value}")
+        self.config["theme"] = theme_value
+        ReadWriteJSON().write_config(self.config)
+
+        for btn in self.theme_buttons:
+            btn.get_style_context().remove_class("theme-selected")
+
+        button.get_style_context().add_class("theme-selected")
 
 

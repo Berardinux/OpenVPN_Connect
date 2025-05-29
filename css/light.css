@@ -20,6 +20,8 @@
     min-height: 40px;
 }
 
+/* Profile window stuff { */
+
 .hamburger-btn image {
     color: white;
 }
@@ -36,6 +38,8 @@
     border-bottom-right-radius:16px;
 }
 
+/* } */
+
 .label {
     font-size: 20px;
 }
@@ -50,3 +54,22 @@
     min-width: 400px;
     box-shadow: none;
 }
+/* Settings window stuff { */
+.settings_title {
+    color: #2a3964;
+    font-size: 20px;
+}
+
+button.settings-toggle-btn {
+    border-radius: 25px;
+    padding: 6px 12px;
+    background-color: #f0f0f0;
+    color: black;
+}
+
+button.theme-selected {
+    background: #d4792d;
+    color: white;
+}
+
+/* } */

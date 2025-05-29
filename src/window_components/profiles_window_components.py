@@ -144,6 +144,7 @@ class ProfilesWindowUIComponents:
         self.click_catcher.set_valign(Gtk.Align.FILL)
         self.click_catcher.set_halign(Gtk.Align.FILL)
         overlay.add_overlay(self.click_catcher)
+        self.click_catcher.set_no_show_all(True)
         self.click_catcher.hide()
 
     def open_sidebar(self, button=None):

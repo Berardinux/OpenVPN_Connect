@@ -67,7 +67,6 @@ class InitWindows:
         self.overlay, self.stack = self.win_ui.create_window()
 
     def init_profiles_window(self):
-        self.callback.settings_window()
         pro_ui = ProfilesWindowUIComponents()
         header_box = pro_ui.create_profiles_header_box(
                 hamburger_button_clicked=pro_ui.open_sidebar, 
