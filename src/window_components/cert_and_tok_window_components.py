@@ -10,6 +10,8 @@ class CertAndTokWindowUIComponents:
         self.header_box = None
         self.header_label = None
         self.body_box = None
+        self.pkcs_btn = None
+        self.hw_btn = None
         self.config=ReadWriteJSON().read_config()
         self.theme = self.config.get("theme", "light")
 
@@ -64,21 +66,34 @@ class CertAndTokWindowUIComponents:
         self.tab_box.set_halign(Gtk.Align.CENTER)
         self.tab_box.set_margin_top(10)
 
-        pkcs_btn = Gtk.Button(label="PKCS #12")
-        pkcs_btn.set_size_request(200, -1)
-        hw_btn = Gtk.Button(label="HARDWARE TOKENS")
-        hw_btn.set_size_request(200, -1)
+        self.pkcs_btn = Gtk.Button(label="PKCS #12")
+        self.pkcs_btn.set_size_request(200, -1)
+        self.pkcs_btn.get_style_context().add_class("body-stack-toggle-btn")
+        self.hw_btn = Gtk.Button(label="HARDWARE TOKENS")
+        self.hw_btn.set_size_request(200, -1)
+        self.hw_btn.get_style_context().add_class("body-stack-toggle-btn")
 
-        pkcs_btn.connect("clicked", lambda btn: self.stack.set_visible_child_name("pkcs"))
-        hw_btn.connect("clicked", lambda btn: self.stack.set_visible_child_name("hardware"))
+        self.pkcs_btn.connect("clicked", lambda btn: self.switch_tab("pkcs"))
+        self.hw_btn.connect("clicked", lambda btn: self.switch_tab("hardware"))
 
-        self.tab_box.pack_start(pkcs_btn, False, False, 0)
-        self.tab_box.pack_start(hw_btn, False, False, 0)
+        self.tab_box.pack_start(self.pkcs_btn, False, False, 0)
+        self.tab_box.pack_start(self.hw_btn, False, False, 0)
 
         self.body_box.pack_start(self.tab_box, False, False, 10)
         self.body_box.pack_start(self.stack, True, True, 10)
+        
+        self.switch_tab("pkcs")
 
         return self.body_box
+
+    def switch_tab(self, tab_name):
+        self.stack.set_visible_child_name(tab_name)
+        self.pkcs_btn.get_style_context().remove_class("selected")
+        self.hw_btn.get_style_context().remove_class("selected")
+        if tab_name == "pkcs":
+            self.pkcs_btn.get_style_context().add_class("selected")
+        else:
+            self.hw_btn.get_style_context().add_class("selected")
 
     def create_cert_stack(self):
         outer_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)

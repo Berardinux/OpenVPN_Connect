@@ -20,6 +20,22 @@
     min-height: 40px;
 }
 
+.body-stack-toggle-btn {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    font-weight: bold;
+    color: #5a5a5a;
+    padding: 10px 20px;
+}
+
+.body-stack-toggle-btn:selected,
+.body-stack-toggle-btn.selected {
+    color: #d4792d;
+    border-bottom: 3px solid #d4792d;
+    background: transparent;
+}
+
 /* Profile window stuff { */
 
 .hamburger-btn image {
