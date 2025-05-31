@@ -52,7 +52,7 @@ class CertAndTokWindowUIComponents:
         self.body_box.set_name("custom-body")
 
         self.stack = Gtk.Stack()
-        self.stack.set_transition_type(Gtk.StackTransitionType.NONE)
+        self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
         self.stack.set_vexpand(True)
         self.stack.set_hexpand(True)
 
