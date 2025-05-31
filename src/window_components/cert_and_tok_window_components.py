@@ -124,7 +124,7 @@ class CertAndTokWindowUIComponents:
         footer_box.set_halign(Gtk.Align.CENTER)
 
         button = Gtk.Button(label="ADD CERTIFICATE")
-        button.get_style_context().add_class("add-cert-btn")
+        button.get_style_context().add_class("add-wide-footer-btn")
         button.set_margin_bottom(20)
         footer_box.pack_start(button, False, False, 0)
 
