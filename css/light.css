@@ -36,6 +36,38 @@
     background: transparent;
 }
 
+.color0 {
+    color: black;
+}
+
+.color1 {
+    color: gray;
+}
+
+.entry {
+    background-color: transparent;
+    color: #000;
+    border: none;
+    border-bottom: 3px solid gray;
+    padding: 8px 10px;
+    font-size: 20px;
+}
+
+.label {
+    font-size: 20px;
+}
+
+.add-wide-footer-btn {
+    background-image:none;
+    background-color: #d4792d;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 10px 20px;
+    min-width: 400px;
+    box-shadow: none;
+}
+
 /* Profile window stuff { */
 
 .hamburger-btn image {
@@ -56,20 +88,7 @@
 
 /* } */
 
-.label {
-    font-size: 20px;
-}
 
-.add-wide-footer-btn {
-    background-image:none;
-    background-color: #d4792d;
-    color: white;
-    font-weight: bold;
-    border-radius: 6px;
-    padding: 10px 20px;
-    min-width: 400px;
-    box-shadow: none;
-}
 /* Settings window stuff { */
 .settings_title {
     color: #2a3964;

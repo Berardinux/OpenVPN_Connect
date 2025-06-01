@@ -97,8 +97,29 @@ class ImportProfileWindowUIComponents:
         outer_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         
         inner_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        inner_box.set_valign(Gtk.Align.CENTER)
-        inner_box.set_halign(Gtk.Align.CENTER)
+        inner_box.set_valign(Gtk.Align.START)
+        inner_box.set_margin_left(40)
+        inner_box.set_margin_right(40)
+
+        label = Gtk.Label(label="URL")
+        label.get_style_context().add_class("h5")
+        label.get_style_context().add_class("color1")
+        label.set_halign(Gtk.Align.START)
+        inner_box.pack_start(label, False, False, 0)
+
+        entry = Gtk.Entry()
+        entry.set_text("https://")
+        entry.get_style_context().add_class("entry")
+        inner_box.pack_start(entry, False, False, 0)
+
+        note = Gtk.Label(label =(
+            "Please note that you can only import profile\n"
+            "using URL if it is supported by your VPN\n" 
+            "provider"
+            ))
+        note.get_style_context().add_class("h5")
+        note.get_style_context().add_class("color1")
+        inner_box.pack_start(note, False, False, 0)
 
         
         # Footer button
@@ -121,8 +142,18 @@ class ImportProfileWindowUIComponents:
         outer_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
         inner_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        inner_box.set_valign(Gtk.Align.CENTER)
+        inner_box.set_valign(Gtk.Align.START)
         inner_box.set_halign(Gtk.Align.CENTER)
+
+        note = Gtk.Label()
+        note.set_markup(
+                "Drag and drop to upload .OVPN profile.\n"
+                'You can import <span foreground="orange">only one profile</span> at a time'
+                )
+        note.get_style_context().add_class("h5")
+        note.get_style_context().add_class("color1")
+        inner_box.pack_start(note, False, False, 0)
+
 
         footer_box = Gtk.Box()
         footer_box.set_size_request(-1, 40)

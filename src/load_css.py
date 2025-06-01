@@ -6,12 +6,12 @@ from error import ErrorCheck
 from read_write_json import ReadWriteJSON
 
 class LoadCSS:
-    CSS_PROVIDER = Gtk.CssProvider()
 
     def __init__(self):
         self.config = ReadWriteJSON().read_config()
     
     def load_styles_css(self):
+        css_provider = Gtk.CssProvider()
     
         css_path = os.path.abspath(
                 os.path.join(
@@ -20,9 +20,10 @@ class LoadCSS:
                     )
                 )
 
-        ErrorCheck().error_check_for_loading_css(LoadCSS.CSS_PROVIDER, css_path)
+        ErrorCheck().error_check_for_loading_css(css_provider, css_path)
 
     def load_theme_css(self):
+        css_provider = Gtk.CssProvider()
         theme = self.config.get("theme", "light")
         filename = f"{theme}.css"
 
@@ -33,6 +34,6 @@ class LoadCSS:
                     )
                 )
 
-        ErrorCheck().error_check_for_loading_css(self.CSS_PROVIDER, css_path)
+        ErrorCheck().error_check_for_loading_css(css_provider, css_path)
 
 
