@@ -68,6 +68,23 @@
     box-shadow: none;
 }
 
+.add-wide-footer-btn-1 {
+    background-image: none;
+    background-color: transparent;
+    color: #2b6cb0;
+    font-weight: bold;
+    border: 2px solid #2b6cb0;
+    border-radius: 6px;
+    padding: 10px 20px;
+    min-width: 400px;
+    box-shadow: none;
+}
+
+.drop-area {
+    border: 2px dashed #2b6cb0;
+    border-radius: 8px;
+}
+
 /* Profile window stuff { */
 
 .hamburger-btn image {

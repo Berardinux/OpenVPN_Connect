@@ -3,6 +3,7 @@ import os
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gdk
 from gi.repository import GdkPixbuf
+from urllib.parse import unquote
 from read_write_json import ReadWriteJSON
 
 class ImportProfileWindowUIComponents:
@@ -142,25 +143,65 @@ class ImportProfileWindowUIComponents:
         outer_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
         inner_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        inner_box.set_valign(Gtk.Align.START)
+        inner_box.set_valign(Gtk.Align.CENTER)
         inner_box.set_halign(Gtk.Align.CENTER)
+
+        path = "../images/" + self.theme + "/ovpn_profile.png"
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
+                path, 150, 150,
+                preserve_aspect_ratio=True
+                )
+        image = Gtk.Image.new_from_pixbuf(pixbuf)
+        inner_box.pack_start(image, False, False, 0)
 
         note = Gtk.Label()
         note.set_markup(
-                "Drag and drop to upload .OVPN profile.\n"
+                '<span foreground="black">Drag and drop to upload *.OVPN profile</span>.\n'
                 'You can import <span foreground="orange">only one profile</span> at a time'
                 )
         note.get_style_context().add_class("h5")
         note.get_style_context().add_class("color1")
         inner_box.pack_start(note, False, False, 0)
 
+        drop_area = Gtk.EventBox()
+        drop_area.drag_dest_set(
+                Gtk.DestDefaults.ALL,
+                [],
+                Gdk.DragAction.COPY
+                )
+        target = Gtk.TargetEntry.new("text/uri-list", 0, 0)
+        target_list = Gtk.TargetList.new([target])
+        drop_area.drag_dest_set_target_list(target_list)
+        drop_area.connect("drag-data-received", self.on_file_drop)
+        drop_area.set_size_request(400, 300)
+        drop_area.set_border_width(12)
+        drop_area.set_margin_bottom(20)
+        drop_area.set_margin_left(20)
+        drop_area.set_margin_right(20)
+        drop_area.get_style_context().add_class("drop-area")
+        drop_area.override_background_color(Gtk.StateFlags.NORMAL, Gdk.RGBA(0.96, 0.96, 0.96, 1))
+        drop_area.add(inner_box)
+        outer_box.pack_start(drop_area, True, True, 0)
 
+        # Footer button
         footer_box = Gtk.Box()
         footer_box.set_size_request(-1, 40)
         footer_box.set_valign(Gtk.Align.END)
         footer_box.set_halign(Gtk.Align.CENTER)
 
-        outer_box.pack_start(inner_box, True, True, 0)
+        button = Gtk.Button(label="BROWSE")
+        button.get_style_context().add_class("add-wide-footer-btn-1")
+        button.set_margin_bottom(20)
+
+        footer_box.pack_start(button, False, False, 0)
         outer_box.pack_start(footer_box, False, False, 0)
 
         return outer_box
+
+    def on_file_drop(self, widget, context, x, y, selection, info, time):
+        uris = selection.get_uris()
+        if uris:
+            file_uri = uris[0]
+            path = unquote(file_uri.replace("file://", "").strip())
+            print("Dropped file path: ", path)
+        return True
