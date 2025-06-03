@@ -2,6 +2,7 @@ import os
 import gi
 import sys
 gi.require_version("Gtk", "3.0")
+import os
 from gi.repository import Gtk, Gdk
 
 class Error:
@@ -17,14 +18,14 @@ class Error:
         dialog.format_secondary_text(message)
         dialog.run()
         dialog.destroy()
-        Gtk.main_quit()
 
 class ErrorCheck:
     def error_check_for_loading_css(self, css_provider, css_path):
         if not os.path.exists(css_path):
             Error().show_error_dialog(f"CSS file not found:\n{css_path}")
             sys.exit(1)
-    
+            Gtk.main_quit()
+
         try:
             css_provider.load_from_path(css_path)
             screen = Gdk.Screen.get_default()
@@ -37,8 +38,21 @@ class ErrorCheck:
         except Exception as e:
             Error().show_error_dialog(f"Failed to load CSS:\n{e}")
             sys.exit(1)
+            Gtk.main_quit()
 
     def error_check_for_loading_config(self, config_path):
         if not os.path.exists(config_path):
             Error().show_error_dialog(f"Config file not found:\n{config_path}")
             sys.exit(1)
+            Gtk.main_quit()
+
+    def error_check_for_drag_and_drop_ovpn_profile(self, path):
+        name, ext = os.path.splitext(path)
+        if ext.lower() != ".ovpn":
+            Error().show_error_dialog(
+                    f"Failed to import profile\nWe do not support this type of files"
+                    )
+            return 1
+        else:
+            return 0
+        

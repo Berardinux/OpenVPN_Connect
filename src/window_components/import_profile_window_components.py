@@ -1,3 +1,4 @@
+from types import MethodDescriptorType
 import gi
 import os
 gi.require_version("Gtk", "3.0")
@@ -5,6 +6,7 @@ from gi.repository import Gtk, Gdk
 from gi.repository import GdkPixbuf
 from urllib.parse import unquote
 from read_write_json import ReadWriteJSON
+from error import ErrorCheck
 
 class ImportProfileWindowUIComponents:
     def __init__(self):
@@ -204,4 +206,13 @@ class ImportProfileWindowUIComponents:
             file_uri = uris[0]
             path = unquote(file_uri.replace("file://", "").strip())
             print("Dropped file path: ", path)
+
+        if ErrorCheck().error_check_for_drag_and_drop_ovpn_profile(path):
+            print("What you doing it failed")
+            context.finish(False, False, time)
+            return True
+
+        print("Nice it didnt fail!")
+
+        context.finish(True, False, time)
         return True

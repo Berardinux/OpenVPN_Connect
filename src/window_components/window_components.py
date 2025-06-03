@@ -21,7 +21,7 @@ class WindowUIComponents:
 
     def create_window(self):
         self.win = Gtk.Window()
-        self.win.set_title("OpenVPN Connect")
+        self.win.set_title("Linux OVPN")
         self.win.set_default_size(500, 800)
         self.win.set_resizable(False)
         self.win.set_position(Gtk.WindowPosition.CENTER)

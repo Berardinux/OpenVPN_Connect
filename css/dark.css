@@ -1,0 +1,128 @@
+
+#main-frame {
+    background-color: #1f2425;
+    color: #000;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+#custom-header {
+    background-color: #293864;
+}
+
+#custom-header label {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.hamburger-btn, .list-btn, .back-btn {
+    min-width: 60px;
+    min-height: 40px;
+}
+
+.body-stack-toggle-btn {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    font-weight: bold;
+    color: #5a5a5a;
+    padding: 10px 20px;
+}
+
+.body-stack-toggle-btn:selected,
+.body-stack-toggle-btn.selected {
+    color: #d4792d;
+    border-bottom: 3px solid #d4792d;
+    background: transparent;
+}
+
+.color0 {
+    color: black;
+}
+
+.color1 {
+    color: gray;
+}
+
+.entry {
+    background-color: transparent;
+    color: #000;
+    border: none;
+    border-bottom: 3px solid gray;
+    padding: 8px 10px;
+    font-size: 20px;
+}
+
+.label {
+    font-size: 20px;
+}
+
+.add-wide-footer-btn {
+    background-image:none;
+    background-color: #d4792d;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 10px 20px;
+    min-width: 400px;
+    box-shadow: none;
+}
+
+.add-wide-footer-btn-1 {
+    background-image: none;
+    background-color: transparent;
+    color: #2b6cb0;
+    font-weight: bold;
+    border: 2px solid #2b6cb0;
+    border-radius: 6px;
+    padding: 10px 20px;
+    min-width: 400px;
+    box-shadow: none;
+}
+
+.drop-area {
+    border: 2px dashed #2b6cb0;
+    border-radius: 8px;
+}
+
+/* Profile window stuff { */
+
+.hamburger-btn image {
+    color: white;
+}
+
+.import_profile_btn, .add_proxy_btn {
+    min-width: 100px;
+}
+
+#sidebar {
+    background-color: #293864;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius:16px;
+}
+
+/* } */
+
+
+/* Settings window stuff { */
+.settings_title {
+    color: #2a3964;
+    font-size: 20px;
+}
+
+button.settings-toggle-btn {
+    border-radius: 25px;
+    padding: 6px 12px;
+    background-color: #f0f0f0;
+    color: black;
+}
+
+button.theme-selected {
+    background: #d4792d;
+    color: white;
+}
+
+/* } */
