@@ -4,9 +4,12 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gdk
 from gi.repository import GdkPixbuf
 from read_write_json import ReadWriteJSON
+from load_css import ThemeManager
+from gi.repository import GLib
 
 class SettingsWindowUIComponents:
-    def __init__(self):
+    def __init__(self, callback):
+        self.callback = callback
         self.header_box = None
         self.header_label = None
         self.body_box = None
@@ -60,12 +63,14 @@ class SettingsWindowUIComponents:
         container.set_margin_right(20)
 
         # Theme section {
-        theme_title = Gtk.Label()
-        theme_title.set_markup("<b>Theme</b>")
-        theme_title.get_style_context().add_class("settings_title")
+        theme_title = Gtk.Label(label="Theme")
+        theme_title.get_style_context().add_class("h5")
+        theme_title.get_style_context().add_class("color3")
         theme_title.set_halign(Gtk.Align.START)
         
         theme_desc = Gtk.Label(label="Choose application color theme")
+        theme_desc.get_style_context().add_class("h6")
+        theme_desc.get_style_context().add_class("color0")
         theme_desc.set_halign(Gtk.Align.START)
         theme_desc.set_valign(Gtk.Align.START)
         theme_desc.set_line_wrap(True)
@@ -92,7 +97,6 @@ class SettingsWindowUIComponents:
 
         scroll.add(container)
         self.body_box = scroll
-        #self.body_box.set_name("custom-body")
         return self.body_box
 
     def on_theme_clicked(self, button, theme_value):
@@ -105,4 +109,8 @@ class SettingsWindowUIComponents:
 
         button.get_style_context().add_class("theme-selected")
 
+        ThemeManager().apply_theme(theme_value)
 
+        GLib.idle_add(self.callback.reload_theme_dependent_pages, theme_value)  
+
+        

@@ -157,10 +157,16 @@ class ImportProfileWindowUIComponents:
         inner_box.pack_start(image, False, False, 0)
 
         note = Gtk.Label()
-        note.set_markup(
-                '<span foreground="black">Drag and drop to upload *.OVPN profile</span>.\n'
-                'You can import <span foreground="orange">only one profile</span> at a time'
-                )
+        if self.theme == "light":
+            note.set_markup(
+                    '<span foreground="black">Drag and drop to upload *.OVPN profile</span>.\n'
+                    'You can import <span foreground="orange">only one profile</span> at a time'
+                    )
+        elif self.theme == "dark":
+            note.set_markup(
+                    '<span foreground="white">Drag and drop to upload *.OVPN profile</span>.\n'
+                    'You can import <span foreground="orange">only one profile</span> at a time'
+                    )
         note.get_style_context().add_class("h5")
         note.get_style_context().add_class("color1")
         inner_box.pack_start(note, False, False, 0)
@@ -181,7 +187,6 @@ class ImportProfileWindowUIComponents:
         drop_area.set_margin_left(20)
         drop_area.set_margin_right(20)
         drop_area.get_style_context().add_class("drop-area")
-        drop_area.override_background_color(Gtk.StateFlags.NORMAL, Gdk.RGBA(0.96, 0.96, 0.96, 1))
         drop_area.add(inner_box)
         outer_box.pack_start(drop_area, True, True, 0)
 

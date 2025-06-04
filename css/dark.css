@@ -7,7 +7,7 @@
 }
 
 #custom-header {
-    background-color: #293864;
+    background-color: #323738;
 }
 
 #custom-header label {
@@ -26,7 +26,7 @@
     border: none;
     box-shadow: none;
     font-weight: bold;
-    color: #5a5a5a;
+    color: lightgray;
     padding: 10px 20px;
 }
 
@@ -37,24 +37,20 @@
     background: transparent;
 }
 
-.color0 {
-    color: black;
+.color0, .color3 {
+    color: white;
 }
 
 .color1 {
-    color: gray;
+    color: lightgray;
 }
 
 .entry {
     background-color: transparent;
-    color: #000;
+    color: #fff;
     border: none;
     border-bottom: 3px solid gray;
     padding: 8px 10px;
-    font-size: 20px;
-}
-
-.label {
     font-size: 20px;
 }
 
@@ -72,9 +68,9 @@
 .add-wide-footer-btn-1 {
     background-image: none;
     background-color: transparent;
-    color: #2b6cb0;
+    color: white;
     font-weight: bold;
-    border: 2px solid #2b6cb0;
+    border: 2px solid white;
     border-radius: 6px;
     padding: 10px 20px;
     min-width: 400px;
@@ -82,7 +78,7 @@
 }
 
 .drop-area {
-    border: 2px dashed #2b6cb0;
+    border: 2px dashed white;
     border-radius: 8px;
 }
 
@@ -97,7 +93,7 @@
 }
 
 #sidebar {
-    background-color: #293864;
+    background-color: #323738;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
     border-bottom-left-radius: 0px;

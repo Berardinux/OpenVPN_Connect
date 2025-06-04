@@ -3,6 +3,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gdk
 
 from load_css import LoadCSS
+from read_write_json import ReadWriteJSON
 from window_components.window_components import WindowUIComponents
 from window_components.window_components import InitWindows
 
@@ -22,7 +23,7 @@ class MainGUI:
         self.init.init_add_proxy_window()
         self.init.init_proxies_window()
         self.init.init_cert_and_tok_window()
-        self.init.init_settings_window()
+        self.init.init_settings_window(callback=self)
         self.init.init_statistics_window()
         self.init.init_profiles_window()
         self.profiles_window()
@@ -58,6 +59,22 @@ class MainGUI:
     def logs_window(self, button=None):
         self.stack.set_visible_child_name("logs")
         self.win_ui.win.show_all()
+
+    def reload_theme_dependent_pages(self, theme_value):
+        cert_widget = self.stack.get_child_by_name("cert_and_tok")
+        if cert_widget:
+            self.stack.remove(cert_widget)
+        proxies_widget = self.stack.get_child_by_name("proxies")
+        if proxies_widget:
+            self.stack.remove(proxies_widget)
+        import_widget = self.stack.get_child_by_name("import_profile")
+        if import_widget:
+            self.stack.remove(import_widget)
+
+        self.init.init_cert_and_tok_window()
+        self.init.init_proxies_window()
+        self.init.init_import_profile_window()
+
 
 if __name__ == "__main__":
     app = MainGUI()

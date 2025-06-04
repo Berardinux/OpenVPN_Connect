@@ -62,6 +62,8 @@ class ProxiesWindowUIComponents:
         label.set_margin_top(30)
         label.set_justify(Gtk.Justification.CENTER)
         label.get_style_context().add_class("label")
+        label.get_style_context().add_class("color0")
+
         self.body_box.pack_start(image, False, False, 0)
         self.body_box.pack_start(label, False, False, 0)
 

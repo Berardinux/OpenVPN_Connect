@@ -36,4 +36,17 @@ class LoadCSS:
 
         ErrorCheck().error_check_for_loading_css(css_provider, css_path)
 
+class ThemeManager:
+    def __init__(self):
+        self.screen = Gdk.Screen.get_default()
 
+    def apply_theme(self, theme):
+        css_provider = Gtk.CssProvider()
+        css_path = os.path.abspath(
+                os.path.join(os.path.dirname(__file__), "..", "css", f"{theme}.css")
+                )
+        ErrorCheck().error_check_for_loading_css(css_provider, css_path)
+
+        Gtk.StyleContext.add_provider_for_screen(
+                self.screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+                )

@@ -99,8 +99,8 @@ class InitWindows:
         statistics_view.pack_start(statistics_body_box, True, True, 0)
         self.stack.add_named(statistics_view, "statistics")
 
-    def init_settings_window(self):
-        set_ui = SettingsWindowUIComponents()
+    def init_settings_window(self, callback):
+        set_ui = SettingsWindowUIComponents(callback)
         settings_header_box = set_ui.create_settings_header_box(callback=self.callback.profiles_window)
         settings_body_box = set_ui.create_settings_body_box()
         settings_view = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
