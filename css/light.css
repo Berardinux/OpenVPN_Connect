@@ -96,11 +96,12 @@
 }
 
 #sidebar {
-    background-color: #293864;
+    background-color: white;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius:16px;
+    border-bottom-left-radius: 16px;
 }
 
 /* } */

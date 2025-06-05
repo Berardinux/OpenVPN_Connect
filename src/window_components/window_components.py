@@ -26,6 +26,7 @@ class WindowUIComponents:
         self.win.set_resizable(False)
         self.win.set_position(Gtk.WindowPosition.CENTER)
         self.win.connect("destroy", Gtk.main_quit)
+        self.win.set_keep_above(True)
 
         self.stack = Gtk.Stack()
         self.stack.set_transition_type(Gtk.StackTransitionType.NONE)
@@ -78,8 +79,28 @@ class InitWindows:
         profiles_view.pack_start(header_box, False, False, 0)
         profiles_view.pack_start(body_box, True, True, 0)
         profiles_view.pack_start(footer_box, False, False, 0)
-        if not self.stack.get_child_by_name("profiles"):
-            self.stack.add_named(profiles_view, "profiles")
+
+        profiles_overlay = Gtk.Overlay()
+        profiles_overlay.add(profiles_view)
+
+        self.profiles_dimmer = Gtk.EventBox()
+        self.profiles_dimmer.set_visible_window(True)
+        self.profiles_dimmer.override_background_color(
+                Gtk.StateFlags.NORMAL,
+                Gdk.RGBA(0, 0, 0, 0.5)
+                )
+
+        self.profiles_dimmer.set_halign(Gtk.Align.FILL)
+        self.profiles_dimmer.set_valign(Gtk.Align.FILL)
+        self.profiles_dimmer.set_hexpand(True)
+        self.profiles_dimmer.set_vexpand(True)
+        self.profiles_dimmer.set_no_show_all(True)
+        self.profiles_dimmer.hide()
+
+        profiles_overlay.add_overlay(self.profiles_dimmer)
+
+        self.stack.add_named(profiles_overlay, "profiles")
+
         self.stack.set_visible_child_name("profiles")
         pro_ui.create_sidebar(
                 self.overlay,
@@ -87,7 +108,8 @@ class InitWindows:
                 proxies_callback=self.callback.proxies_window,
                 cert_and_tok_callback=self.callback.cert_and_tok_window,
                 settings_callback=self.callback.settings_window,
-                statistics_callback=self.callback.statistics_window
+                statistics_callback=self.callback.statistics_window,
+                dimmer=self.profiles_dimmer
                 )
 
     def init_statistics_window(self):

@@ -86,8 +86,10 @@ class ProfilesWindowUIComponents:
             proxies_callback=None,
             cert_and_tok_callback = None,
             settings_callback=None,
-            statistics_callback=None
+            statistics_callback=None,
+            dimmer=None
             ):
+        self.profiles_dimmer = dimmer
         self.import_profile_callback = import_profile_callback
         self.proxies_callback = proxies_callback
         self.cert_and_tok_callback = cert_and_tok_callback
@@ -130,7 +132,7 @@ class ProfilesWindowUIComponents:
         overlay.add_overlay(self.revealer)
 
         self.click_catcher = Gtk.EventBox()
-        self.click_catcher.set_visible_window(False)
+        self.click_catcher.set_visible_window(True)
         self.click_catcher.set_above_child(True)
         self.click_catcher.connect("button-press-event", self._on_click_outside)
 
@@ -150,12 +152,14 @@ class ProfilesWindowUIComponents:
     def open_sidebar(self, button=None):
         self.revealer.set_reveal_child(True)
         if self.click_catcher:
+            self.profiles_dimmer.show()
             self.click_catcher.show()
 
     def close_sidebar(self):
         self.revealer.set_reveal_child(False)
         if self.click_catcher:
             self.click_catcher.hide()
+            self.profiles_dimmer.hide()
 
     def _on_click_outside(self, widget, event):
         self.close_sidebar()
